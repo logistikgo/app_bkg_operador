@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Logistikgo Demo</string>
+
+    <string name="title_activity_menu">Logisti-k GO</string>
+    <string name="company">Logisti-k de México</string>
+    <string name="slogan">Asegurate que suceda</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Ajustes</string>
+    <string name="title_activity_viaje_curso">Viaje en curso</string>
+    <string name="title_fragment_viaje_curso">Viaje en curso</string>
+    <string name="title_fragment_informacion_viaje">Información del viaje</string>
+    <string name="title_activity_seguimiento_viaje">Map</string>
+
+    <string name="edittext_user">Usuario</string>
+    <string name="edittext_password">Contraseña</string>
+    <string name="button_login">Inicio de Sesión</string>
+
+    <string name="text_welcome">Bienvenido</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_travel">Viaje en curso</string>
+    <string name="menu_evidence">Evidencias</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="menu_about">Acerca de</string>
+
+    <string name="tab_travel">Viaje</string>
+    <string name="tab_data">Información</string>
+
+    <string name="button_nostatus">NINGÚN STATUS</string>
+    <string name="button_llegadaorigen">LLEGADAORIGEN</string>
+    <string name="button_carga">CARGA</string>
+    <string name="button_ruta">RUTA</string>
+    <string name="button_llegadatransfer">LLEGADATRANSFER</string>
+    <string name="button_cruce">CRUCE</string>
+    <string name="button_llegadadestino">LLEGADADESTINO</string>
+    <string name="button_descarga">DESCARGA</string>
+
+    <string name="folio_data">Folio</string>
+    <string name="data_data">Datos</string>
+    <string name="origin_data">Origen</string>
+    <string name="destination_data">Destino</string>
+    <string name="goods_data">Mercancía</string>
+    <string name="presentation_data">Presentación</string>
+    <string name="classification_data">Clasificación</string>
+    <string name="description_data">Observaciones</string>
+    <string name="quantity_data">Cantidad</string>
+    <string name="weight_data">Peso</string>
+    <string name="volume">Volumen</string>
+
+    <string name="title_activity_acerca_de">Acerca de</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

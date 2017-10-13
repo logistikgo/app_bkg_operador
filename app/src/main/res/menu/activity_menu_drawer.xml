@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_incio"
+            android:icon="@drawable/ic_menu_casa"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_viajecurso"
+            android:icon="@drawable/ic_menu_avion"
+            android:title="@string/menu_travel" />
+        <item
+            android:id="@+id/nav_evidencias"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/menu_evidence" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_ajustes"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/menu_settings" />
+            <item
+                android:id="@+id/nav_acercade"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/menu_about" />
+        </menu>
+    </item>
+
+</menu>
