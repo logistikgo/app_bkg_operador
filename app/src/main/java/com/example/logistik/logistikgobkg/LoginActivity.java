@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (ValidateForm(new EditText[]{editUsuario, editContrasena})) {
             //API DEBUG
-            String strURL = "https://api.logistikgo.com/api/Usuarios/ValidarUsuario";
+            String strURL = "https://api-bgk-debug.logistikgo.com/api/Usuarios/ValidarUsuario";
             //API DEBUG VISUAL STUDIO
             JSONObject jdata = new JSONObject();
             JSONObject jParams = new JSONObject();

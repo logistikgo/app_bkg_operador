@@ -176,10 +176,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="@string/presentation_data" />
+                        android:text="@string/packaging_data" />
 
                     <TextView
-                        android:id="@+id/textPresentacion"
+                        android:id="@+id/textEmbalaje"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -279,11 +279,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/goods_data"
+                        android:text="@string/volume"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textMerccancia"
+                        android:id="@+id/textVolumen"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>

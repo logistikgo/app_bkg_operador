@@ -60,10 +60,10 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
     MapView mapView;
     View view;
     private Marker marcador;
-    double lat = 0.0;
+   // double lat = 0.0;
     double coordLng = 0.0;
     double coordLat = 0.0;
-    String strIDViaje;
+    String strIDBro_Viaje;
     String StatusProceso;
     LatLng lastCoordenadas;
     Date lastUpdate = new Date();
@@ -81,7 +81,7 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
 
         Bundle bundle = getActivity().getIntent().getExtras();
         StatusProceso = bundle.getString("StatusProceso");
-        strIDViaje = bundle.getString("IDViajeProceso");
+        strIDBro_Viaje = bundle.getString("IDViajeProceso");
         button = (Button) view.findViewById(R.id.btn_viaje_curso);
         if (bundle != null) {
             button.setText(StatusProceso);
@@ -213,7 +213,7 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
 
                 //API debug
                 // String strURL = "http://192.168.1.54:63510/api/Viaje/Bro_SetStatus";
-                String strURL = "https://api.logistikgo.com/api/Viaje/SetStatusViaje";
+                String strURL = "https://api-bgk-debug.logistikgo.com/api/Viaje/Bro_SetStatus";
 
                 JSONObject jdata = new JSONObject();
                 JSONObject jParams = new JSONObject();
@@ -221,7 +221,7 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
                 try {
                     jdata.put("strURL", strURL);
 
-                    jParams.put("strIDViaje", strIDViaje);
+                    jParams.put("strIDBro_Viaje", strIDBro_Viaje);
                     jParams.put("coordLat", coordLat);
                     jParams.put("coordLng", coordLng);
 
@@ -428,7 +428,7 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
         //region SAVE COORDENADAS
 
         //API debug
-        String strURL = "https://api.logistikgo.com/api/Maps/SaveCoordenadas";
+        String strURL = "https://api-bgk-debug.logistikgo.com/api/Maps/SaveCoordenadasBro";
 
         JSONObject jdata = new JSONObject();
         JSONObject jParams = new JSONObject();
@@ -443,7 +443,7 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
         try {
             jdata.put("strURL", strURL);
 
-            jParams.put("strIDViaje", strIDViaje);
+            jParams.put("strIDBro_Viaje", strIDBro_Viaje);
             jParams.put("fLat", fLat);
             jParams.put("fLng", fLng);
 

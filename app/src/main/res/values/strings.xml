@@ -43,6 +43,7 @@
     <string name="origin_data">Origen</string>
     <string name="destination_data">Destino</string>
     <string name="goods_data">Mercancía</string>
+    <string name="packaging_data">Embalaje</string>
     <string name="presentation_data">Presentación</string>
     <string name="classification_data">Clasificación</string>
     <string name="description_data">Observaciones</string>
