@@ -6,5 +6,6 @@
 
     <color name="black_overlay">#66000000</color>
 
-    <color name="orange_logistik">#f68504</color>
+    <color name="blue_logistik">#66ccff</color>
+    <color name="orange_logistik">#66ccff</color>
 </resources>
