@@ -1,29 +1,25 @@
 package com.example.logistik.logistikgobkg;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.transition.Transition;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Slide;
-import android.util.JsonReader;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -44,6 +40,16 @@ public class LoginActivity extends AppCompatActivity {
 
         editUsuario = (EditText) findViewById(R.id.editUsuario);
         editContrasena = (EditText) findViewById(R.id.editContrasena);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            Toast.makeText(this, "ACCESS GRANTED REQUEST", Toast.LENGTH_SHORT).show();
+        }
+        else{
+
+            Toast.makeText(this, "ACCESS GRANTED", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onMenuClick(View view) throws ExecutionException, InterruptedException, JSONException {
