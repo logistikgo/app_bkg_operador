@@ -111,6 +111,7 @@ public class InformacionTab extends Fragment {
 
         //REALIZA LA PETICIO
         JSONObject jResult = GetResponse(jdata, jParams);
+        jResult = jResult.getJSONObject("jData");
         textViewFolio.setText(jResult.getString("Folio"));
         textViewCteOrigen.setText(jResult.getString("ClienteOrigen"));
         texViewCteDestino.setText(jResult.getString("ClienteDestino"));
