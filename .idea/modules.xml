@@ -4,10 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LogistikGobkg.iml" filepath="$PROJECT_DIR$/LogistikGobkg.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app_bkg_operador.iml" filepath="$PROJECT_DIR$/app_bkg_operador.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app_bkg_operador.iml" filepath="$PROJECT_DIR$/app_bkg_operador.iml" />
       <module fileurl="file://$PROJECT_DIR$/app_bkg_operador.iml" filepath="$PROJECT_DIR$/app_bkg_operador.iml" />
     </modules>
   </component>

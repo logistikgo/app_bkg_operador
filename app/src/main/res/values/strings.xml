@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Logistikgo Demo</string>
+    <string name="app_name">Broqueraje</string>
 
-    <string name="title_activity_menu">Logisti-k GO</string>
+    <string name="title_activity_menu">Broqueraje</string>
     <string name="company">Logisti-k de México</string>
     <string name="slogan">Asegurate que suceda</string>
 

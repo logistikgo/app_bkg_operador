@@ -64,23 +64,23 @@
             android:value="@string/google_maps_key" />
 
         <!--<activity-->
-            <!--android:name=".Activity_seguimientoViaje"-->
-            <!--android:label="@string/title_activity_seguimiento_viaje">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value="com.example.logistik.logistikgobkg.MenuActivity" />-->
+        <!--android:name=".Activity_seguimientoViaje"-->
+        <!--android:label="@string/title_activity_seguimiento_viaje">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.PARENT_ACTIVITY"-->
+        <!--android:value="com.example.logistik.logistikgobkg.MenuActivity" />-->
 
 
         <!--</activity>-->
         <!--<activity-->
-            <!--android:name=".AcercadeActivity"-->
-            <!--android:configChanges="orientation"-->
-            <!--android:label="@string/title_activity_acerca_de"-->
-            <!--android:parentActivityName=".MenuActivity"-->
-            <!--android:screenOrientation="portrait">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value="com.example.logistik.logistikgobkg.MenuActivity" />-->
+        <!--android:name=".AcercadeActivity"-->
+        <!--android:configChanges="orientation"-->
+        <!--android:label="@string/title_activity_acerca_de"-->
+        <!--android:parentActivityName=".MenuActivity"-->
+        <!--android:screenOrientation="portrait">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.PARENT_ACTIVITY"-->
+        <!--android:value="com.example.logistik.logistikgobkg.MenuActivity" />-->
         <!--</activity>-->
     </application>
 

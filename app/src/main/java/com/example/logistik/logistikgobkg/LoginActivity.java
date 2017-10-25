@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 //                }
             if (jResult.getJSONObject("jMeta").getString("Response").equals("OK")) {
                 jResult = jResult.getJSONObject("jData");
-                String NombreUsuario = jResult.getString("NombreUsuario");
+                String NombreUsuario = jResult.getString("Nombre");
                 Toast.makeText(this, "Bienvenido " + NombreUsuario, Toast.LENGTH_SHORT).show();
                 Context currentContext = this;
                 Intent activity_login = new Intent(currentContext, MenuActivity.class);
