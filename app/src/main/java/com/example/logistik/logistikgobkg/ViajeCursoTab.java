@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.text.Html;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,7 +61,7 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
     MapView mapView;
     View view;
     private Marker marcador;
-   // double lat = 0.0;
+    // double lat = 0.0;
     double coordLng = 0.0;
     double coordLat = 0.0;
     String strIDBro_Viaje;
@@ -203,66 +204,68 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
 
     // TODO: begin API
     public void setStatus(View view) throws ExecutionException, InterruptedException, JSONException {
-        AlertDialog.Builder alertdialog = new AlertDialog.Builder(getActivity());
-        alertdialog.setTitle("ALERTA");
-        alertdialog.setMessage("¿ Estas seguro de cambiar el status?");
-        alertdialog.setCancelable(false);
-        alertdialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface alertdialog, int id) {
-                //region CAMBIA STATUS
 
-                //API debug
-                // String strURL = "http://192.168.1.54:63510/api/Viaje/Bro_SetStatus";
-                String strURL = "https://api-bgk-debug.logistikgo.com/api/Viaje/Bro_SetStatus";
+        if (isConnected()) {
+            AlertDialog.Builder alertdialog = new AlertDialog.Builder(getActivity());
+            alertdialog.setTitle("ALERTA");
+            alertdialog.setMessage("¿ Estas seguro de cambiar el status?");
+            alertdialog.setCancelable(false);
+            alertdialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface alertdialog, int id) {
+                    //region CAMBIA STATUS
 
-                JSONObject jdata = new JSONObject();
-                JSONObject jParams = new JSONObject();
+                    //API debug
+                    // String strURL = "http://192.168.1.54:63510/api/Viaje/Bro_SetStatus";
+                    String strURL = "https://api-bgk-debug.logistikgo.com/api/Viaje/Bro_SetStatus";
 
-                try {
-                    jdata.put("strURL", strURL);
+                    JSONObject jdata = new JSONObject();
+                    JSONObject jParams = new JSONObject();
 
-                    jParams.put("strIDBro_Viaje", strIDBro_Viaje);
-                    jParams.put("coordLat", coordLat);
-                    jParams.put("coordLng", coordLng);
+                    try {
+                        jdata.put("strURL", strURL);
+
+                        jParams.put("strIDBro_Viaje", strIDBro_Viaje);
+                        jParams.put("coordLat", coordLat);
+                        jParams.put("coordLng", coordLng);
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                //REALIZA LA PETICIO
-                JSONObject jResult = null;
-                try {
-                    jResult = GetResponse(jdata, jParams);
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    //REALIZA LA PETICIO
+                    JSONObject jResult = null;
+                    try {
+                        jResult = GetResponse(jdata, jParams);
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                String StatusSiguiente = null;
-                try {
-                    StatusSiguiente = jResult.getString("StatusProceso");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                if (StatusSiguiente.equals("")) {
-                    Intent intent = new Intent(getActivity(), MenuActivity.class);
-                    startActivity(intent);
-                } else {
-                    AlertDialog.Builder alerBuilder = new AlertDialog.Builder(getActivity());
-                    alerBuilder.setTitle("ALERTA");
-                    alerBuilder.setMessage("Estatus cambiado correctamente");
-                    alerBuilder.setCancelable(false);
+                    String StatusSiguiente = null;
+                    try {
+                        StatusSiguiente = jResult.getString("StatusProceso");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    if (StatusSiguiente.equals("")) {
+                        Intent intent = new Intent(getActivity(), MenuActivity.class);
+                        startActivity(intent);
+                    } else {
+                        AlertDialog.Builder alerBuilder = new AlertDialog.Builder(getActivity());
+                        alerBuilder.setTitle("ALERTA");
+                        alerBuilder.setMessage("Estatus cambiado correctamente");
+                        alerBuilder.setCancelable(false);
 
-                    alerBuilder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface alertdialog, int id) {
-                        }
-                    });
-                            button.setText(StatusSiguiente);
-                }
+                        alerBuilder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface alertdialog, int id) {
+                            }
+                        });
+                        button.setText(StatusSiguiente);
+                    }
 
 //                if (StatusSiguiente != "FINALIZADO") {
 //
@@ -270,17 +273,38 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
 //                    Intent intent = new Intent(getActivity(), MenuActivity.class);
 //                    startActivity(intent);
 //                }
-                //endregion
-            }
-        });
-        alertdialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface alertdialog, int id) {
+                    //endregion
+                }
+            });
+            alertdialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface alertdialog, int id) {
 //                cancelar();
-            }
-        });
-        alertdialog.show();
+                }
+            });
+            alertdialog.show();
+        } else {
+            android.app.AlertDialog.Builder alertdialog = new android.app.AlertDialog.Builder(getActivity());
+            alertdialog.setTitle(Html.fromHtml("<font color='#FF7F27'>Los datos están desactivados</font>"));
+            alertdialog.setMessage("Activa los datos o Wi-Fi en la configuración");
+            alertdialog.setCancelable(false);
+//            alertdialog.setPositiveButton("Configuración", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface alertdialog, int id) {
+//                }
+//            });
+            alertdialog.setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface alertdialog, int id) {
+//                cancelar();
+                }
+            });
+            alertdialog.show();
+        }
+    }
 
+    public boolean isConnected() {
+        ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(getActivity().CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
+        return (networkInfo != null && networkInfo.isConnected());
     }
 
     public JSONObject GetResponse(JSONObject jdata, JSONObject jParams) throws ExecutionException, InterruptedException, JSONException {

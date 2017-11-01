@@ -1,11 +1,15 @@
 package com.example.logistik.logistikgobkg;
 
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Html;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -121,16 +125,34 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.nav_incio) {
             // Handle the camera action
         } else if (id == R.id.nav_viajecurso) {
-            intent = new Intent(MenuActivity.this, ViajeCursoActivity.class);
-            intent.putExtra("IDViajeProceso", IDViajeProceso);
-            intent.putExtra("StatusProceso", StatusProceso);
+
+            if (isConnected()) {
+                intent = new Intent(MenuActivity.this, ViajeCursoActivity.class);
+                intent.putExtra("IDViajeProceso", IDViajeProceso);
+                intent.putExtra("StatusProceso", StatusProceso);
+            } else {
+                android.app.AlertDialog.Builder alertdialog = new android.app.AlertDialog.Builder(this);
+                alertdialog.setTitle(Html.fromHtml("<font color='#FF7F27'>Los datos están desactivados</font>"));
+                alertdialog.setMessage("Activa los datos o Wi-Fi en la configuración");
+                alertdialog.setCancelable(false);
+//                alertdialog.setPositiveButton("Configuración", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface alertdialog, int id) {
+//                    }
+//                });
+                alertdialog.setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface alertdialog, int id) {
+//                cancelar();
+                    }
+                });
+                alertdialog.show();
+            }
 
         } else if (id == R.id.nav_evidencias) {
-          //  intent = new Intent(MenuActivity.this, Activity_seguimientoViaje.class);
+            //  intent = new Intent(MenuActivity.this, Activity_seguimientoViaje.class);
         } else if (id == R.id.nav_ajustes) {
 
         } else if (id == R.id.nav_acercade) {
-           // intent = new Intent(MenuActivity.this, AcercadeActivity.class);
+            // intent = new Intent(MenuActivity.this, AcercadeActivity.class);
         }
 
         if (intent != null) {
@@ -141,6 +163,13 @@ public class MenuActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public boolean isConnected() {
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        return (networkInfo != null && networkInfo.isConnected());
     }
 
     @Override
