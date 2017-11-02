@@ -28,6 +28,7 @@
 
     <string name="tab_travel">Viaje</string>
     <string name="tab_data">Información</string>
+    <string name="tab_upload_evidence">Evidencias</string>
 
     <string name="button_nostatus">NINGÚN STATUS</string>
     <string name="button_llegadaorigen">LLEGADAORIGEN</string>

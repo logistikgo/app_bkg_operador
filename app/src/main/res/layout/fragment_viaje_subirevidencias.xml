@@ -1,0 +1,195 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    tools:context="com.example.logistik.logistikgobkg.ViajeSubirEvicenciasTab">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/Constraint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageViewBackgroundEivendeUno"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/backgound_list_evidence" />
+
+        <ImageView
+            android:id="@+id/imageEvidenceUno"
+            android:layout_width="115dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/image_round"
+            android:scaleType="fitXY"
+            app:layout_constraintLeft_toLeftOf="@+id/imageViewBackgroundEivendeUno"
+            app:layout_constraintTop_toTopOf="@+id/imageViewBackgroundEivendeUno"
+            app:srcCompat="@drawable/no_images"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBackgroundEivendeUno"
+            android:layout_marginBottom="8dp" />
+
+        <ImageButton
+            android:id="@+id/buttonEvidenceUno"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_camera"
+            app:srcCompat="@drawable/ic_menu_camera"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
+            app:layout_constraintLeft_toLeftOf="@+id/imageEvidenceUno"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBackgroundEivendeUno"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/textViewEvidenceUno"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Descripción..."
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="@+id/imageViewBackgroundEivendeUno"
+            app:layout_constraintLeft_toRightOf="@+id/buttonEvidenceUno"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBackgroundEivendeUno"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="@+id/imageViewBackgroundEivendeUno"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_textview"/>
+
+        <ImageView
+            android:id="@+id/imageViewBackgroundEivendeDos"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundEivendeUno"
+            app:srcCompat="@drawable/backgound_list_evidence" />
+
+        <ImageView
+            android:id="@+id/imageEvidenceDos"
+            android:layout_width="115dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/image_round"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBackgroundEivendeDos"
+            app:layout_constraintLeft_toLeftOf="@+id/imageViewBackgroundEivendeDos"
+            app:layout_constraintTop_toTopOf="@+id/imageViewBackgroundEivendeDos"
+            app:srcCompat="@drawable/no_images" />
+
+        <ImageButton
+            android:id="@+id/buttonEvidenceDos"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_camera"
+            app:srcCompat="@drawable/ic_menu_camera"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
+            app:layout_constraintLeft_toLeftOf="@+id/imageEvidenceDos"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBackgroundEivendeDos"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/textViewEvidenceDos"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Descripción..."
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="@+id/imageViewBackgroundEivendeDos"
+            app:layout_constraintLeft_toRightOf="@+id/buttonEvidenceDos"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="@+id/imageViewBackgroundEivendeDos"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBackgroundEivendeDos"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintVertical_bias="0.0"
+            android:background="@drawable/background_textview" />
+
+        <ImageView
+            android:id="@+id/imageViewBackgroundEivendeTres"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackgroundEivendeDos"
+            app:srcCompat="@drawable/backgound_list_evidence" />
+
+        <ImageView
+            android:id="@+id/imageEvidenceTres"
+            android:layout_width="115dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/image_round"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBackgroundEivendeTres"
+            app:layout_constraintLeft_toLeftOf="@+id/imageViewBackgroundEivendeTres"
+            app:layout_constraintTop_toTopOf="@+id/imageViewBackgroundEivendeTres"
+            app:srcCompat="@drawable/no_images" />
+
+        <ImageButton
+            android:id="@+id/buttonEvidenceTres"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_camera"
+            app:srcCompat="@drawable/ic_menu_camera"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
+            app:layout_constraintLeft_toLeftOf="@+id/imageEvidenceTres"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBackgroundEivendeTres"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/textViewEvidenceTres"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Descripción..."
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="@+id/imageViewBackgroundEivendeTres"
+            app:layout_constraintLeft_toRightOf="@+id/buttonEvidenceTres"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="@+id/imageViewBackgroundEivendeTres"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBackgroundEivendeTres"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/background_textview" />
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

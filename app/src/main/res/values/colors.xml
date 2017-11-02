@@ -8,4 +8,7 @@
 
     <color name="blue_logistik">#66ccff</color>
     <color name="orange_logistik">#66ccff</color>
+
+    <color name="background_evidence">#e1e3e5</color>
+    <color name="white_logistik">#ffffff</color>
 </resources>
