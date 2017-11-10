@@ -1,8 +1,10 @@
 package com.example.logistik.logistikgobkg;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -127,9 +129,27 @@ public class MenuActivity extends AppCompatActivity
         } else if (id == R.id.nav_viajecurso) {
 
             if (isConnected()) {
+                if (isUbicacion()){
                 intent = new Intent(MenuActivity.this, ViajeCursoActivity.class);
                 intent.putExtra("IDViajeProceso", IDViajeProceso);
                 intent.putExtra("StatusProceso", StatusProceso);
+                }else {
+                    Toast.makeText(this, "Favor de activar tu ubicacion para continuar", Toast.LENGTH_SHORT).show();
+                    android.app.AlertDialog.Builder alertdialog = new android.app.AlertDialog.Builder(this);
+                    alertdialog.setTitle(Html.fromHtml("<font color='#FF7F27'>Tu Ubicacion esta desactivada</font>"));
+                    alertdialog.setMessage("Favor de activar tu ubicacion para continuar");
+                    alertdialog.setCancelable(false);
+//                alertdialog.setPositiveButton("Configuración", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface alertdialog, int id) {
+//                    }
+//                });
+                    alertdialog.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface alertdialog, int id) {
+//                cancelar();
+                        }
+                    });
+                    alertdialog.show();
+                }
             } else {
                 android.app.AlertDialog.Builder alertdialog = new android.app.AlertDialog.Builder(this);
                 alertdialog.setTitle(Html.fromHtml("<font color='#FF7F27'>Los datos están desactivados</font>"));
@@ -170,6 +190,10 @@ public class MenuActivity extends AppCompatActivity
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
         return (networkInfo != null && networkInfo.isConnected());
+    }
+    public boolean isUbicacion() {
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     @Override

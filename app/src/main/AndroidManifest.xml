@@ -21,7 +21,7 @@
         <activity
             android:name=".InicioActivity"
             android:configChanges="orientation"
-            android:label="LogistikGO"
+            android:label="Logistik BKG"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

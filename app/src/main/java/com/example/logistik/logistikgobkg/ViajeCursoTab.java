@@ -214,7 +214,9 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
 
                     //API debug
                     // String strURL = "http://192.168.1.54:63510/api/Viaje/Bro_SetStatus";
-                    String strURL = "https://api-bgk-debug.logistikgo.com/api/Viaje/Bro_SetStatus";
+                  //  String strURL = "https://api-bgk-debug.logistikgo.com/api/Viaje/Bro_SetStatus";
+                    //API DEMO
+                    String strURL = "https://api-bkg-test.logistikgo.com/api/Viaje/Bro_SetStatus";
 
                     JSONObject jdata = new JSONObject();
                     JSONObject jParams = new JSONObject();
@@ -450,7 +452,9 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
         //region SAVE COORDENADAS
 
         //API debug
-        String strURL = "https://api-bgk-debug.logistikgo.com/api/Maps/SaveCoordenadasBro";
+      //  String strURL = "https://api-bgk-debug.logistikgo.com/api/Maps/SaveCoordenadasBro";
+        //API DEMO
+        String strURL = "https://api-bkg-test.logistikgo.com/api/Maps/SaveCoordenadasBro";
 
         JSONObject jdata = new JSONObject();
         JSONObject jParams = new JSONObject();

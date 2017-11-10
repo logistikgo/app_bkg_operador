@@ -89,8 +89,11 @@ public class InformacionTab extends Fragment {
     // TODO: begin API
     public void datosg(View view) throws ExecutionException, InterruptedException, JSONException {
 
-        //API PRODUCCION
-        String strURL = "https://api-bgk-debug.logistikgo.com/api/Viaje/GetDatosViaje";
+        //API DEBUG
+       // String strURL = "https://api-bgk-debug.logistikgo.com/api/Viaje/GetDatosViaje";
+        //API DEMO
+        String strURL = "https://api-bkg-test.logistikgo.com/api/Viaje/GetDatosViaje";
+
         //strIDViaje = "130";
         JSONObject jdata = new JSONObject();
         JSONObject jParams = new JSONObject();
