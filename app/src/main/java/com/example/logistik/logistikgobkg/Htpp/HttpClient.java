@@ -52,10 +52,10 @@ public class HttpClient {
     public void connectForMultipart() throws Exception {
         con = (HttpURLConnection) ( new URL(url)).openConnection();
         con.setRequestMethod("POST");
-        con.getAllowUserInteraction ();
+      //  con.getAllowUserInteraction ();
         con.setDoInput(true);
         con.setDoOutput(true);
-        con.setRequestProperty("Host", "localhost:63513");
+      //  con.setRequestProperty("Host", "localhost:63513");
         con.setRequestProperty("Connection", "Keep-Alive");
         con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
         con.connect();
