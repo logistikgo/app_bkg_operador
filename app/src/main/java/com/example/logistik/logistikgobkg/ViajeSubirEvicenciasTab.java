@@ -38,10 +38,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class ViajeSubirEvicenciasTab extends Fragment {
+    String IDViaje;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri filePath;
     private ImageView mImageView;
-    private String url = "http://10.0.2.2:63513/api/Viaje/SaveEvidenciaDigital";
+   // private String url = "http://10.0.2.2:63513/api/Viaje/SaveEvidenciaDigital";
+    private String url = "https://api-bkg-test.logistikgo.com/api/Viaje/SaveEvidenciaDigital";
+
     ImageView imageEvidenceUno, imageEvidenceDos, imageEvidenceTres;
     ImageButton buttonEvidenceUno, buttonEvidenceDos, buttonEvidenceTres;
     Activity activity;
@@ -56,6 +59,9 @@ public class ViajeSubirEvicenciasTab extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_viaje_subirevidencias, container, false);
+
+        Bundle bundle = getActivity().getIntent().getExtras();
+        IDViaje = bundle.getString("IDViajeProceso");
 
         //extraemos el drawable en un bitmap
         Drawable originalDrawable = getResources().getDrawable(R.drawable.no_images);
@@ -143,7 +149,6 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         protected Void doInBackground(Bitmap... bitmaps) {
             String Titulo = "CARTA PORTE";
             String TipoArchivo = "EVIDENCIAS";
-            String IDViaje = "1848";
             String BOUNDARY = "--eriksboundry--";
 
             if (bitmaps[0] == null)
