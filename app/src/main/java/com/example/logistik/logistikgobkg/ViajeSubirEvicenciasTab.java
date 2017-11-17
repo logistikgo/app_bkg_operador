@@ -36,6 +36,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.ByteBuffer;
 
 public class ViajeSubirEvicenciasTab extends Fragment {
     String IDViaje;
@@ -163,6 +164,17 @@ public class ViajeSubirEvicenciasTab extends Fragment {
                 return;
         }
     }
+    public static byte[] bitmapToByteArray(Bitmap bm) {
+        // Create the buffer with the correct size
+        int iBytes = bm.getWidth() * bm.getHeight() * 4;
+        ByteBuffer buffer = ByteBuffer.allocate(iBytes);
+
+        // Log.e("DBG", buffer.remaining()+""); -- Returns a correct number based on dimensions
+        // Copy to buffer and then into byte array
+        bm.copyPixelsToBuffer(buffer);
+        // Log.e("DBG", buffer.remaining()+""); -- Returns 0
+        return buffer.array();
+    }
 
     public class UploadTask extends AsyncTask<Bitmap, Void, Void> {
 
@@ -178,8 +190,10 @@ public class ViajeSubirEvicenciasTab extends Fragment {
             //  InputStream in = new ByteArrayInputStream(stream.toByteArray()); // convert ByteArrayOutputStream to ByteArrayInputStream
             //  bitmap = BitmapFactory.decodeResource(MainActivity.this.getResources(), R.mipmap.ic_launcher);
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, baos);
+           // ByteArrayOutputStream baos = new ByteArrayOutputStream();
+           // bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] b = bitmapToByteArray(bitmap);
+
             HttpClient client = new HttpClient(url);
 
             try {
@@ -188,7 +202,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
                 client.addFormPart("Titulo", Titulo);
                 client.addFormPart("TipoArchivo", TipoArchivo);
                 client.addFormPart("IDViaje", IDViaje);
-                client.addFilePart("file", ".png", baos.toByteArray());
+                client.addFilePart("file", ".png", b);
                 String response = null;
 
                 client.finishMultipart();
