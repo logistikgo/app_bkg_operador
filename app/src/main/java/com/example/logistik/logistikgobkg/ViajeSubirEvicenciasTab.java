@@ -39,6 +39,8 @@ import java.net.URL;
 
 public class ViajeSubirEvicenciasTab extends Fragment {
     String IDViaje;
+    String Titulo;
+    String TipoArchivo = "EVIDENCIAS";
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri filePath;
     private ImageView mImageView;
@@ -46,7 +48,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
     private String url = "https://api-bkg-test.logistikgo.com/api/Viaje/SaveEvidenciaDigital";
 
     ImageView imageViewCartaPorte, imageViewRemision, imageViewEvidencia;
-    ImageButton buttonEvidenceUno, buttonEvidenceDos, buttonEvidenceTres;
+    ImageButton buttonCartaPorte, buttonRemision, buttonEvidencia;
     Activity activity;
 //  Linea 51
     @Override
@@ -81,12 +83,37 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         imageViewRemision.setImageDrawable(roundedDrawable);
         imageViewEvidencia.setImageDrawable(roundedDrawable);
 
-        buttonEvidenceUno = (ImageButton) view.findViewById(R.id.buttonCartaPorte);
+        buttonCartaPorte = (ImageButton) view.findViewById(R.id.buttonCartaPorte);
+        buttonRemision = (ImageButton) view.findViewById(R.id.buttonRemision);
+        buttonEvidencia = (ImageButton) view.findViewById(R.id.buttonEvidencia);
 
 
-        buttonEvidenceUno.setOnClickListener(new View.OnClickListener() {
+        buttonCartaPorte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Titulo = "CARTA PORTE";
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }
+
+            }
+        });
+        buttonRemision.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Titulo = "REMISION";
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }
+
+            }
+        });
+        buttonEvidencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Titulo = "EVIDENCIA";
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -111,44 +138,37 @@ public class ViajeSubirEvicenciasTab extends Fragment {
             filePath = data.getData();
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            //    saveEvidencia(imageBitmap);
-            setPic(imageBitmap);
-            //  nImage.setImageBitmap(imageBitmap);
+            try {
+                sendPhoto(imageBitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void setPic(Bitmap imageBitmap) {
-
-
-        Matrix mtx = new Matrix();
-        mtx.postRotate(90);
-        // Rotating Bitmap
-        Bitmap rotatedBMP = Bitmap.createBitmap(imageBitmap, 0, 0, imageBitmap.getWidth(), imageBitmap.getHeight(), mtx, true);
-
-        if (rotatedBMP != imageBitmap)
-            imageBitmap.recycle();
-
-        imageViewCartaPorte.setImageBitmap(rotatedBMP);
-
-        try {
-            sendPhoto(rotatedBMP);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
     private void sendPhoto(Bitmap bitmap) throws Exception {
         new UploadTask().execute(bitmap);
+
+
+        switch (Titulo) {
+            case "CARTA PORTE":
+                imageViewCartaPorte.setImageBitmap(bitmap);
+                return;
+            case "REMISION":
+                imageViewRemision.setImageBitmap(bitmap);
+                return;
+            case "EVIDENCIA":
+                imageViewEvidencia.setImageBitmap(bitmap);
+                return;
+        }
     }
 
     public class UploadTask extends AsyncTask<Bitmap, Void, Void> {
-        private static final String TAG = "MyActivity";
 
         @Override
         protected Void doInBackground(Bitmap... bitmaps) {
-            String Titulo = "CARTA PORTE";
-            String TipoArchivo = "EVIDENCIAS";
+
             String BOUNDARY = "--eriksboundry--";
 
             if (bitmaps[0] == null)
