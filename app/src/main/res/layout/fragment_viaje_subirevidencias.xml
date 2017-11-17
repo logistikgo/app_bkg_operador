@@ -81,11 +81,25 @@
             android:scrollbars = "vertical"
             android:gravity="top"
             android:inputType="textMultiLine"
+            android:paddingRight="40dp"
             app:layout_constraintBottom_toBottomOf="@+id/backGroundCartaPorte"
             app:layout_constraintLeft_toRightOf="@+id/buttonCartaPorte"
             app:layout_constraintRight_toRightOf="@+id/backGroundCartaPorte"
             app:layout_constraintTop_toBottomOf="@+id/textViewCartaPorte"
             app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/buttonSendCartaPorte"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:background="@drawable/button_send"
+            app:srcCompat="@drawable/ic_menu_send"
+            app:layout_constraintTop_toTopOf="@+id/editTextCartaPorte"
+            android:layout_marginTop="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextCartaPorte"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="0dp"
+            app:layout_constraintRight_toRightOf="@+id/editTextCartaPorte" />
 
         <ImageView
             android:id="@+id/backGroundRemision"
@@ -153,11 +167,25 @@
             android:scrollbars = "vertical"
             android:gravity="top"
             android:inputType="textMultiLine"
+            android:paddingRight="40dp"
             app:layout_constraintBottom_toBottomOf="@+id/backGroundRemision"
             app:layout_constraintLeft_toRightOf="@+id/buttonRemision"
             app:layout_constraintRight_toRightOf="@+id/backGroundRemision"
             app:layout_constraintTop_toBottomOf="@+id/textViewRemision"
             app:layout_constraintVertical_bias="0.452" />
+
+        <ImageButton
+            android:id="@+id/buttonSendRemision"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:background="@drawable/button_send"
+            app:srcCompat="@drawable/ic_menu_send"
+            app:layout_constraintTop_toTopOf="@+id/editTextRemision"
+            android:layout_marginTop="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextRemision"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="0dp"
+            app:layout_constraintRight_toRightOf="@+id/editTextRemision" />
 
         <ImageView
             android:id="@+id/backgroundEvidencia"
@@ -228,12 +256,26 @@
             android:scrollbars = "vertical"
             android:gravity="top"
             android:inputType="textMultiLine"
+            android:paddingRight="40dp"
             app:layout_constraintBottom_toBottomOf="@+id/backgroundEvidencia"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintLeft_toRightOf="@+id/buttonEvidencia"
             app:layout_constraintRight_toRightOf="@+id/backgroundEvidencia"
             app:layout_constraintTop_toBottomOf="@+id/textViewEvidencia"
             app:layout_constraintVertical_bias="0.492" />
+
+        <ImageButton
+            android:id="@+id/buttonSendEvidencia"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:background="@drawable/button_send"
+            app:srcCompat="@drawable/ic_menu_send"
+            app:layout_constraintTop_toTopOf="@+id/editTextEvidencia"
+            android:layout_marginTop="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextEvidencia"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="0dp"
+            app:layout_constraintRight_toRightOf="@+id/editTextEvidencia" />
 
     </android.support.constraint.ConstraintLayout>
 
