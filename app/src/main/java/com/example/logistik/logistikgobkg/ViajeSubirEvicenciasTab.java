@@ -48,7 +48,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
     ImageView imageViewCartaPorte, imageViewRemision, imageViewEvidencia;
     ImageButton buttonEvidenceUno, buttonEvidenceDos, buttonEvidenceTres;
     Activity activity;
-
+//  Linea 51
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
