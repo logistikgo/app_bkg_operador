@@ -45,7 +45,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
    // private String url = "http://10.0.2.2:63513/api/Viaje/SaveEvidenciaDigital";
     private String url = "https://api-bkg-test.logistikgo.com/api/Viaje/SaveEvidenciaDigital";
 
-    ImageView imageEvidenceUno, imageEvidenceDos, imageEvidenceTres;
+    ImageView imageViewCartaPorte, imageViewRemision, imageViewEvidencia;
     ImageButton buttonEvidenceUno, buttonEvidenceDos, buttonEvidenceTres;
     Activity activity;
 
@@ -73,15 +73,15 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         //asignamos el CornerRadius
         roundedDrawable.setCornerRadius(originalBitmap.getHeight());
 
-        imageEvidenceUno = (ImageView) view.findViewById(R.id.imageEvidenceUno);
-        imageEvidenceDos = (ImageView) view.findViewById(R.id.imageEvidenceDos);
-        imageEvidenceTres = (ImageView) view.findViewById(R.id.imageEvidenceTres);
+        imageViewCartaPorte = (ImageView) view.findViewById(R.id.imageViewCartaPorte);
+        imageViewRemision = (ImageView) view.findViewById(R.id.imageViewRemision);
+        imageViewEvidencia = (ImageView) view.findViewById(R.id.imageViewEvidencia);
 
-        imageEvidenceUno.setImageDrawable(roundedDrawable);
-        imageEvidenceDos.setImageDrawable(roundedDrawable);
-        imageEvidenceTres.setImageDrawable(roundedDrawable);
+        imageViewCartaPorte.setImageDrawable(roundedDrawable);
+        imageViewRemision.setImageDrawable(roundedDrawable);
+        imageViewEvidencia.setImageDrawable(roundedDrawable);
 
-        buttonEvidenceUno = (ImageButton) view.findViewById(R.id.buttonEvidenceUno);
+        buttonEvidenceUno = (ImageButton) view.findViewById(R.id.buttonCartaPorte);
 
 
         buttonEvidenceUno.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +128,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         if (rotatedBMP != imageBitmap)
             imageBitmap.recycle();
 
-        imageEvidenceUno.setImageBitmap(rotatedBMP);
+        imageViewCartaPorte.setImageBitmap(rotatedBMP);
 
         try {
             sendPhoto(rotatedBMP);
