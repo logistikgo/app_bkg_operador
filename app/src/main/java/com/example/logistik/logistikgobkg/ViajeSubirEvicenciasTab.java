@@ -73,7 +73,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         //asignamos el CornerRadius
         roundedDrawable.setCornerRadius(originalBitmap.getHeight());
 
-        imageViewCartaPorte = (ImageView) view.findViewById(R.id.imageViewCartaPorte);
+        imageViewCartaPorte = (ImageView) view.findViewById(R.id.action_Cerrar_sesion);
         imageViewRemision = (ImageView) view.findViewById(R.id.imageViewRemision);
         imageViewEvidencia = (ImageView) view.findViewById(R.id.imageViewEvidencia);
 
