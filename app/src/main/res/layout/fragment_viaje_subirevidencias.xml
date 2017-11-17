@@ -240,7 +240,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/backgroundEvidencia"
             app:layout_constraintLeft_toLeftOf="@+id/imageViewEvidencia"
             app:srcCompat="@drawable/ic_menu_camera" />
-
+        //She was my Lady
         <EditText
             android:id="@+id/editTextEvidencia"
             android:layout_width="0dp"
