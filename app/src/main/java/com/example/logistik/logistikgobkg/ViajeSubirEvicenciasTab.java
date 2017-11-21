@@ -190,9 +190,9 @@ public class ViajeSubirEvicenciasTab extends Fragment {
             //  InputStream in = new ByteArrayInputStream(stream.toByteArray()); // convert ByteArrayOutputStream to ByteArrayInputStream
             //  bitmap = BitmapFactory.decodeResource(MainActivity.this.getResources(), R.mipmap.ic_launcher);
 
-           // ByteArrayOutputStream baos = new ByteArrayOutputStream();
-           // bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] b = bitmapToByteArray(bitmap);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            //byte[] b = bitmapToByteArray(bitmap);
 
             HttpClient client = new HttpClient(url);
 
@@ -202,7 +202,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
                 client.addFormPart("Titulo", Titulo);
                 client.addFormPart("TipoArchivo", TipoArchivo);
                 client.addFormPart("IDViaje", IDViaje);
-                client.addFilePart("file", ".png", b);
+                client.addFilePart("file", ".png", baos.toByteArray());
                 String response = null;
 
                 client.finishMultipart();
