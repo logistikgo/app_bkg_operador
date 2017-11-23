@@ -24,7 +24,6 @@ import android.widget.Button;
 
 public class ViajeCursoActivity extends AppCompatActivity {
     String strIDViaje;
-
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -34,7 +33,6 @@ public class ViajeCursoActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */

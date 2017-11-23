@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.logistik.logistikgobkg.Config.ConexionAPIs;
 import com.example.logistik.logistikgobkg.Htpp.HttpClient;
 
 import org.json.JSONException;
@@ -46,7 +47,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
     private Uri filePath;
     private ImageView mImageView;
    // private String url = "http://10.0.2.2:63513/api/Viaje/SaveEvidenciaDigital";
-    private String url = "https://api-bkg-test.logistikgo.com/api/Viaje/SaveEvidenciaDigital";
+   String RutaAPI;
 
     ImageView imageViewCartaPorte, imageViewRemision, imageViewEvidencia;
     ImageButton buttonCartaPorte, buttonRemision, buttonEvidencia;
@@ -62,6 +63,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_viaje_subirevidencias, container, false);
+        RutaAPI = ConexionAPIs.RutaApi;
 
         Bundle bundle = getActivity().getIntent().getExtras();
         IDViaje = bundle.getString("IDViajeProceso");
@@ -180,7 +182,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
         @Override
         protected Void doInBackground(Bitmap... bitmaps) {
-
+            String url = RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
             String BOUNDARY = "--eriksboundry--";
 
             if (bitmaps[0] == null)
@@ -193,6 +195,9 @@ public class ViajeSubirEvicenciasTab extends Fragment {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             //byte[] b = bitmapToByteArray(bitmap);
+
+
+
 
             HttpClient client = new HttpClient(url);
 
