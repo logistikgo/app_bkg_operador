@@ -18,6 +18,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.logistik.logistikgobkg.Config.ConexionAPIs;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,11 +36,15 @@ public class LoginActivity extends AppCompatActivity {
     EditText editContrasena;
     String strUsuario;
     String strContrasena;
+    String RutaAPI;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+       RutaAPI = ConexionAPIs.RutaApi;
 
         editUsuario = (EditText) findViewById(R.id.editUsuario);
         editContrasena = (EditText) findViewById(R.id.editContrasena);
@@ -51,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
             Toast.makeText(this, "ACCESS GRANTED", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public void onMenuClick(View view) throws ExecutionException, InterruptedException, JSONException {
@@ -63,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 //API DEBUG
 //                String strURL = "https://api-bgk-debug.logistikgo.com/api/Usuarios/ValidarUsuario";
                 //API DEMO
-                String strURL = "https://api-bkg-test.logistikgo.com/api/Usuarios/ValidarUsuario";
+                String strURL = RutaAPI + "api/Usuarios/ValidarUsuario";
                 //API DEBUG VISUAL STUDIO
                 JSONObject jdata = new JSONObject();
                 JSONObject jParams = new JSONObject();

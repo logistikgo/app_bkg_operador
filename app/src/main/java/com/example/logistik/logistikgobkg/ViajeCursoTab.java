@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.logistik.logistikgobkg.Config.ConexionAPIs;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -69,6 +70,7 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
     LatLng lastCoordenadas;
     Date lastUpdate = new Date();
     int secondLastUpdate = 0;
+    String RutaAPI;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_viaje_curso, container, false);
+        RutaAPI = ConexionAPIs.RutaApi;
 
         Bundle bundle = getActivity().getIntent().getExtras();
         StatusProceso = bundle.getString("StatusProceso");
@@ -216,7 +219,7 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
                     // String strURL = "http://192.168.1.54:63510/api/Viaje/Bro_SetStatus";
                   //  String strURL = "https://api-bgk-debug.logistikgo.com/api/Viaje/Bro_SetStatus";
                     //API DEMO
-                    String strURL = "https://api-bkg-test.logistikgo.com/api/Viaje/Bro_SetStatus";
+                    String strURL = RutaAPI + "api/Viaje/Bro_SetStatus";
 
                     JSONObject jdata = new JSONObject();
                     JSONObject jParams = new JSONObject();
@@ -454,7 +457,7 @@ public class ViajeCursoTab extends Fragment implements OnMapReadyCallback {
         //API debug
       //  String strURL = "https://api-bgk-debug.logistikgo.com/api/Maps/SaveCoordenadasBro";
         //API DEMO
-        String strURL = "https://api-bkg-test.logistikgo.com/api/Maps/SaveCoordenadasBro";
+        String strURL = RutaAPI + "api/Maps/SaveCoordenadasBro";
 
         JSONObject jdata = new JSONObject();
         JSONObject jParams = new JSONObject();

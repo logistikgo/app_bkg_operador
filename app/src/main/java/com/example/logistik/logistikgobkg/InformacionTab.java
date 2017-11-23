@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.logistik.logistikgobkg.Config.ConexionAPIs;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,6 +37,7 @@ public class InformacionTab extends Fragment {
     TextView textViewCteOrigen, texViewCteDestino, textViewCdOrigen, textViewCdDestino, textViewEmbalaje,
             textViewClasificacion, textViewDescripcion, textViewCantidad, textViewPeso, textViewVolumen, textViewFolio;
     String strIDViaje;
+    String RutaAPI;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +56,7 @@ public class InformacionTab extends Fragment {
         textViewVolumen = (TextView) view.findViewById(R.id.textVolumen);
         Bundle bundle = getActivity().getIntent().getExtras();
         strIDViaje = bundle.getString("IDViajeProceso");
+        RutaAPI = ConexionAPIs.RutaApi;
 
         try {
             datosg(view);
@@ -92,7 +96,7 @@ public class InformacionTab extends Fragment {
         //API DEBUG
        // String strURL = "https://api-bgk-debug.logistikgo.com/api/Viaje/GetDatosViaje";
         //API DEMO
-        String strURL = "https://api-bkg-test.logistikgo.com/api/Viaje/GetDatosViaje";
+        String strURL = RutaAPI + "api/Viaje/GetDatosViaje";
 
         //strIDViaje = "130";
         JSONObject jdata = new JSONObject();
