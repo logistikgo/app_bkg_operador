@@ -5,7 +5,12 @@ import android.content.pm.PackageManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
@@ -17,10 +22,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -50,12 +58,14 @@ public class ViajeSubirEvicenciasTab extends Fragment {
    String RutaAPI;
 
     ImageView imageViewCartaPorte, imageViewRemision, imageViewEvidencia;
-    ImageButton buttonCartaPorte, buttonRemision, buttonEvidencia;
+    ImageButton imageButtonCartaPorte, imageButtonRemision, imageButtonEvidencia, buttonCartaPorte, buttonRemision, buttonEvidencia;
+    EditText edittextCartaPorte, editTextRemision, editTextEvidencia;
     Activity activity;
 //  Linea 51
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -68,30 +78,35 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         Bundle bundle = getActivity().getIntent().getExtras();
         IDViaje = bundle.getString("IDViajeProceso");
 
-        //extraemos el drawable en un bitmap
-        Drawable originalDrawable = getResources().getDrawable(R.drawable.no_images);
-        Bitmap originalBitmap = ((BitmapDrawable) originalDrawable).getBitmap();
-
-        //creamos el drawable redondeado
-        RoundedBitmapDrawable roundedDrawable = RoundedBitmapDrawableFactory.create(getResources(), originalBitmap);
-
-        //asignamos el CornerRadius
-        roundedDrawable.setCornerRadius(originalBitmap.getHeight());
-
         imageViewCartaPorte = (ImageView) view.findViewById(R.id.imageViewCartaPorte);
         imageViewRemision = (ImageView) view.findViewById(R.id.imageViewRemision);
         imageViewEvidencia = (ImageView) view.findViewById(R.id.imageViewEvidencia);
 
-        imageViewCartaPorte.setImageDrawable(roundedDrawable);
-        imageViewRemision.setImageDrawable(roundedDrawable);
-        imageViewEvidencia.setImageDrawable(roundedDrawable);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.no_images);
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+        roundedBitmapDrawable.setCircular(true);
 
-        buttonCartaPorte = (ImageButton) view.findViewById(R.id.buttonCartaPorte);
-        buttonRemision = (ImageButton) view.findViewById(R.id.buttonRemision);
-        buttonEvidencia = (ImageButton) view.findViewById(R.id.buttonEvidencia);
+        imageViewCartaPorte.setImageDrawable(roundedBitmapDrawable);
+        imageViewRemision.setImageDrawable(roundedBitmapDrawable);
+        imageViewEvidencia.setImageDrawable(roundedBitmapDrawable);
 
+        imageButtonCartaPorte = (ImageButton) view.findViewById(R.id.buttonCartaPorte);
+        imageButtonRemision = (ImageButton) view.findViewById(R.id.buttonRemision);
+        imageButtonEvidencia = (ImageButton) view.findViewById(R.id.buttonEvidencia);
 
-        buttonCartaPorte.setOnClickListener(new View.OnClickListener() {
+        edittextCartaPorte = (EditText) view.findViewById(R.id.editTextCartaPorte);
+        editTextRemision = (EditText) view.findViewById(R.id.editTextRemision);
+        editTextEvidencia = (EditText) view.findViewById(R.id.editTextEvidencia);
+
+        buttonCartaPorte = (ImageButton) view.findViewById(R.id.buttonSendCartaPorte);
+        buttonRemision = (ImageButton) view.findViewById(R.id.buttonSendRemision);
+        buttonEvidencia = (ImageButton) view.findViewById(R.id.buttonSendEvidencia);
+
+        disableEditText(edittextCartaPorte, buttonCartaPorte);
+        disableEditText(editTextRemision, buttonRemision);
+        disableEditText(editTextEvidencia, buttonEvidencia);
+
+        imageButtonCartaPorte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Titulo = "CARTA PORTE";
@@ -102,7 +117,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
             }
         });
-        buttonRemision.setOnClickListener(new View.OnClickListener() {
+        imageButtonRemision.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Titulo = "REMISION";
@@ -113,7 +128,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
             }
         });
-        buttonEvidencia.setOnClickListener(new View.OnClickListener() {
+        imageButtonEvidencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Titulo = "EVIDENCIA";
@@ -125,6 +140,30 @@ public class ViajeSubirEvicenciasTab extends Fragment {
             }
         });
         return view;
+    }
+
+    private void disableEditText(EditText editText, ImageButton imageButton) {
+        editText.setFocusable(false);
+        editText.setEnabled(false);
+        editText.setCursorVisible(false);
+        editText.setFocusableInTouchMode(false);
+        editText.setInputType(InputType.TYPE_NULL);
+
+        imageButton.setEnabled(false);
+        imageButton.setFocusable(false);
+        imageButton.setFocusableInTouchMode(false);
+    }
+
+    private void enableEditText(EditText editText, ImageButton imageButton) {
+        editText.setFocusable(true);
+        editText.setEnabled(true);
+        editText.setCursorVisible(true);
+        editText.setFocusableInTouchMode(true);
+        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        imageButton.setEnabled(true);
+        imageButton.setFocusable(true);
+        imageButton.setFocusableInTouchMode(true);
     }
 
     public interface OnFragmentInteractionListener {
@@ -153,16 +192,21 @@ public class ViajeSubirEvicenciasTab extends Fragment {
     private void sendPhoto(Bitmap bitmap) throws Exception {
         new UploadTask().execute(bitmap);
 
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+        roundedBitmapDrawable.setCircular(true);
 
         switch (Titulo) {
             case "CARTA PORTE":
-                imageViewCartaPorte.setImageBitmap(bitmap);
+                imageViewCartaPorte.setImageDrawable(roundedBitmapDrawable);
+                enableEditText(edittextCartaPorte, buttonCartaPorte);
                 return;
             case "REMISION":
-                imageViewRemision.setImageBitmap(bitmap);
+                imageViewRemision.setImageDrawable(roundedBitmapDrawable);
+                enableEditText(editTextRemision, buttonRemision);
                 return;
             case "EVIDENCIA":
-                imageViewEvidencia.setImageBitmap(bitmap);
+                imageViewEvidencia.setImageDrawable(roundedBitmapDrawable);
+                enableEditText(editTextEvidencia, buttonEvidencia);
                 return;
         }
     }
