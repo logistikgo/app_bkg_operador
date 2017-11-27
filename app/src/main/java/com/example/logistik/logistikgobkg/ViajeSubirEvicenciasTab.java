@@ -55,8 +55,9 @@ public class ViajeSubirEvicenciasTab extends Fragment{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri filePath;
     private ImageView mImageView;
-   // private String urlCamera = "http://10.0.2.2:63513/api/Viaje/SaveEvidenciaDigital";
-   private String urlDescription = "http://192.168.1.84:63520/api/Viaje/SaveComentarioEv_Digital";
+    private String urlCamera = "http://10.0.2.2:63518/api/Viaje/SaveEvidenciaDigital";
+   private String urlDescription = "http://10.0.2.2:63518/api/Viaje/SaveComentarioEv_Digital";
+
    String RutaAPI, strCartaPorte, strRemision, strEvidencia;
 
     ImageView imageViewCartaPorte, imageViewRemision, imageViewEvidencia;
@@ -266,7 +267,7 @@ public class ViajeSubirEvicenciasTab extends Fragment{
 
         @Override
         protected Void doInBackground(Bitmap... bitmaps) {
-            String url = RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
+            String url = urlCamera; //RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
             String BOUNDARY = "--eriksboundry--";
 
             if (bitmaps[0] == null)
