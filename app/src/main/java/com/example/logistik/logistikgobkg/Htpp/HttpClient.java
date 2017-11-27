@@ -1,5 +1,7 @@
 package com.example.logistik.logistikgobkg.Htpp;
 
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -53,9 +55,9 @@ public class HttpClient {
         con = (HttpURLConnection) ( new URL(url)).openConnection();
         con.setRequestMethod("POST");
       //  con.getAllowUserInteraction ();
-        con.setDoInput(true);
-        con.setDoOutput(true);
-      //  con.setRequestProperty("Host", "localhost:63513");
+//        con.setDoInput(true);
+//        con.setDoOutput(true);
+        con.setRequestProperty("Host", "localhost:63520");
         con.setRequestProperty("Connection", "Keep-Alive");
         con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
         con.connect();
@@ -64,6 +66,10 @@ public class HttpClient {
 
     public void addFormPart(String paramName, String value) throws Exception {
         writeParamData(paramName, value);
+    }
+
+    public void addDescription(JSONObject jsonObject) throws Exception {
+        writeParamDescription(jsonObject);
     }
 
     public void addFilePart(String paramName, String fileName, byte[] data) throws Exception {
@@ -96,10 +102,7 @@ public class HttpClient {
         return buffer.toString();
     }
 
-
-
     private void writeParamData(String paramName, String value) throws Exception {
-
 
         os.write( (delimiter + boundary + "\r\n").getBytes());
         os.write( "Content-Type: text/plain\r\n".getBytes());
@@ -107,5 +110,9 @@ public class HttpClient {
         os.write( ("\r\n" + value + "\r\n").getBytes());
 
 
+    }
+
+    private void writeParamDescription(JSONObject jsonObject) throws Exception{
+        os.write(jsonObject.toString().getBytes("UTF-8"));
     }
 }

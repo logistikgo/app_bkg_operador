@@ -55,7 +55,8 @@ public class ViajeSubirEvicenciasTab extends Fragment{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri filePath;
     private ImageView mImageView;
-   // private String url = "http://10.0.2.2:63513/api/Viaje/SaveEvidenciaDigital";
+   // private String urlCamera = "http://10.0.2.2:63513/api/Viaje/SaveEvidenciaDigital";
+   private String urlDescription = "http://192.168.1.84:63520/api/Viaje/SaveComentarioEv_Digital";
    String RutaAPI, strCartaPorte, strRemision, strEvidencia;
 
     ImageView imageViewCartaPorte, imageViewRemision, imageViewEvidencia;
@@ -144,6 +145,7 @@ public class ViajeSubirEvicenciasTab extends Fragment{
         buttonCartaPorte.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
+                Titulo = "CARTA PORTE";
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
                     strCartaPorte = edittextCartaPorte.getText().toString();
                     saveDescription(strCartaPorte);
@@ -155,6 +157,7 @@ public class ViajeSubirEvicenciasTab extends Fragment{
         buttonRemision.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
+                Titulo = "REMISION";
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
                     strRemision = editTextRemision.getText().toString();
                     saveDescription(strRemision);
@@ -166,6 +169,7 @@ public class ViajeSubirEvicenciasTab extends Fragment{
         buttonEvidencia.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
+                Titulo = "EVIDENCIA";
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
                     strEvidencia = editTextEvidencia.getText().toString();
                     saveDescription(strEvidencia);
@@ -220,9 +224,11 @@ public class ViajeSubirEvicenciasTab extends Fragment{
         }
     }
 
-    private void  saveDescription(String dato){
-        Toast.makeText(getActivity(), dato, Toast.LENGTH_SHORT).show();
+    private void  saveDescription(String strData){
+        new UploadDescription().execute(strData);
+        //Toast.makeText(getActivity(), dato, Toast.LENGTH_SHORT).show();
     }
+
     private void sendPhoto(Bitmap bitmap) throws Exception {
         new UploadTask().execute(bitmap);
 
@@ -304,6 +310,39 @@ public class ViajeSubirEvicenciasTab extends Fragment{
             super.onPostExecute(result);
             //  Toast.makeText(MainActivity.this, R.string.uploaded, Toast.LENGTH_LONG).show();
         }
+    }
 
+    public class UploadDescription extends AsyncTask<String, Void, Void>{
+        @Override
+        protected Void doInBackground(String... strings){
+            String url = urlDescription; //RutaAPI + "api/Viaje/SaveComentarioEv_Digital";
+            HttpClient client = new HttpClient(url);
+            JSONObject jsonObject = new JSONObject();
+
+            try {
+                client.connectForMultipart();
+
+                jsonObject.put("strTitulo", Titulo);
+                jsonObject.put("TipoArchivo", TipoArchivo);
+                jsonObject.put("strIDBro_Viaje", IDViaje);
+                jsonObject.put("strObservacion", strings[0]);
+                client.addDescription(jsonObject);
+                String response = null;
+
+                client.finishMultipart();
+
+                response = client.getResponse();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+            //  Toast.makeText(MainActivity.this, R.string.uploaded, Toast.LENGTH_LONG).show();
+        }
     }
 }
