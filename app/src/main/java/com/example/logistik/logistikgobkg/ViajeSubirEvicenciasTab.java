@@ -24,6 +24,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -47,7 +48,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 
-public class ViajeSubirEvicenciasTab extends Fragment {
+public class ViajeSubirEvicenciasTab extends Fragment{
     String IDViaje;
     String Titulo;
     String TipoArchivo = "EVIDENCIAS";
@@ -55,7 +56,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
     private Uri filePath;
     private ImageView mImageView;
    // private String url = "http://10.0.2.2:63513/api/Viaje/SaveEvidenciaDigital";
-   String RutaAPI;
+   String RutaAPI, strCartaPorte, strRemision, strEvidencia;
 
     ImageView imageViewCartaPorte, imageViewRemision, imageViewEvidencia;
     ImageButton imageButtonCartaPorte, imageButtonRemision, imageButtonEvidencia, buttonCartaPorte, buttonRemision, buttonEvidencia;
@@ -139,6 +140,39 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
             }
         });
+
+        buttonCartaPorte.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    strCartaPorte = edittextCartaPorte.getText().toString();
+                    saveDescription(strCartaPorte);
+                }
+                return true;
+            }
+        });
+
+        buttonRemision.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    strRemision = editTextRemision.getText().toString();
+                    saveDescription(strRemision);
+                }
+                return true;
+            }
+        });
+
+        buttonEvidencia.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    strEvidencia = editTextEvidencia.getText().toString();
+                    saveDescription(strEvidencia);
+                }
+                return true;
+            }
+        });
         return view;
     }
 
@@ -147,7 +181,6 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         editText.setEnabled(false);
         editText.setCursorVisible(false);
         editText.setFocusableInTouchMode(false);
-        editText.setInputType(InputType.TYPE_NULL);
 
         imageButton.setEnabled(false);
         imageButton.setFocusable(false);
@@ -159,7 +192,6 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         editText.setEnabled(true);
         editText.setCursorVisible(true);
         editText.setFocusableInTouchMode(true);
-        editText.setInputType(InputType.TYPE_CLASS_TEXT);
 
         imageButton.setEnabled(true);
         imageButton.setFocusable(true);
@@ -188,7 +220,9 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         }
     }
 
-
+    private void  saveDescription(String dato){
+        Toast.makeText(getActivity(), dato, Toast.LENGTH_SHORT).show();
+    }
     private void sendPhoto(Bitmap bitmap) throws Exception {
         new UploadTask().execute(bitmap);
 
