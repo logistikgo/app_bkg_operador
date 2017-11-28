@@ -51,7 +51,7 @@ public class HttpClient {
         return baos.toByteArray();
     }
 
-    public void connectForMultipart() throws Exception {
+    public void connectForMultipart(String string) throws Exception {
         con = (HttpURLConnection) ( new URL(url)).openConnection();
 
         con.setRequestMethod("POST");
@@ -60,8 +60,7 @@ public class HttpClient {
 //        con.setDoOutput(true);
         con.setRequestProperty("Host", "localhost:63518");
         con.setRequestProperty("Connection", "Keep-Alive");
-        con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-        con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+        con.setRequestProperty("Content-Type", string);
         con.connect();
         os = con.getOutputStream();
     }
