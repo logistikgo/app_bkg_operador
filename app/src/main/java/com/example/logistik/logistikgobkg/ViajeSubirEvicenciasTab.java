@@ -157,6 +157,7 @@ public class ViajeSubirEvicenciasTab extends Fragment{
         buttonRemision.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
+                //MARCO!!
                 Titulo = "REMISION";
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
                     strRemision = editTextRemision.getText().toString();
