@@ -18,7 +18,7 @@ public class HttpClient {
     private OutputStream os;
 
     private String delimiter = "--";
-    private String boundary =  "SwA"+Long.toString(System.currentTimeMillis())+"SwA";
+    private String boundary = "SwA" + Long.toString(System.currentTimeMillis()) + "SwA";
 
     public HttpClient(String url) {
         this.url = url;
@@ -27,24 +27,23 @@ public class HttpClient {
     public byte[] downloadImage(String imgName) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            System.out.println("URL ["+url+"] - Name ["+imgName+"]");
+            System.out.println("URL [" + url + "] - Name [" + imgName + "]");
 
-            HttpURLConnection con = (HttpURLConnection) ( new URL(url)).openConnection();
+            HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
             con.setRequestMethod("POST");
             con.setDoInput(true);
             con.setDoOutput(true);
             con.connect();
-            con.getOutputStream().write( ("name=" + imgName).getBytes());
+            con.getOutputStream().write(("name=" + imgName).getBytes());
 
             InputStream is = con.getInputStream();
             byte[] b = new byte[1024];
 
-            while ( is.read(b) != -1)
+            while (is.read(b) != -1)
                 baos.write(b);
 
             con.disconnect();
-        }
-        catch(Throwable t) {
+        } catch (Throwable t) {
             t.printStackTrace();
         }
 
@@ -52,15 +51,15 @@ public class HttpClient {
     }
 
     public void connectForMultipart(String string) throws Exception {
-        con = (HttpURLConnection) ( new URL(url)).openConnection();
+        con = (HttpURLConnection) (new URL(url)).openConnection();
 
         con.setRequestMethod("POST");
-      //  con.getAllowUserInteraction ();
-//        con.setDoInput(true);
-//        con.setDoOutput(true);
-        con.setRequestProperty("Host", "localhost:63518");
+        //  con.getAllowUserInteraction ();
+        con.setDoInput(true);
+        con.setDoOutput(true);
+        con.setRequestProperty("Host", "localhost:63510");
         con.setRequestProperty("Connection", "Keep-Alive");
-        con.setRequestProperty("Content-Type", string);
+        con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
         con.connect();
         os = con.getOutputStream();
     }
@@ -74,10 +73,10 @@ public class HttpClient {
     }
 
     public void addFilePart(String paramName, String fileName, byte[] data) throws Exception {
-        os.write( (delimiter + boundary + "\r\n").getBytes());
-        os.write( ("Content-Disposition: form-data; name=\"" + paramName +  "\"; filename=\"" + fileName + "\"\r\n"  ).getBytes());
-        os.write( ("Content-Type: application/octet-stream\r\n"  ).getBytes());
-        os.write( ("Content-Transfer-Encoding: binary\r\n"  ).getBytes());
+        os.write((delimiter + boundary + "\r\n").getBytes());
+        os.write(("Content-Disposition: form-data; name=\"" + paramName + "\"; filename=\"" + fileName + "\"\r\n").getBytes());
+        os.write(("Content-Type: application/octet-stream\r\n").getBytes());
+        os.write(("Content-Transfer-Encoding: binary\r\n").getBytes());
         os.write("\r\n".getBytes());
 
         os.write(data);
@@ -86,7 +85,7 @@ public class HttpClient {
     }
 
     public void finishMultipart() throws Exception {
-        os.write( (delimiter + boundary + delimiter + "\r\n").getBytes());
+        os.write((delimiter + boundary + delimiter + "\r\n").getBytes());
     }
 
 
@@ -95,7 +94,7 @@ public class HttpClient {
         byte[] b1 = new byte[1024];
         StringBuffer buffer = new StringBuffer();
 
-        while ( is.read(b1) != -1)
+        while (is.read(b1) != -1)
             buffer.append(new String(b1));
 
         con.disconnect();
@@ -105,15 +104,16 @@ public class HttpClient {
 
     private void writeParamData(String paramName, String value) throws Exception {
 
-        os.write( (delimiter + boundary + "\r\n").getBytes());
-        os.write( "Content-Type: text/plain\r\n".getBytes());
-        os.write( ("Content-Disposition: form-data; name=\"" + paramName + "\"\r\n").getBytes());;
-        os.write( ("\r\n" + value + "\r\n").getBytes());
+        os.write((delimiter + boundary + "\r\n").getBytes());
+        os.write("Content-Type: text/plain\r\n".getBytes());
+        os.write(("Content-Disposition: form-data; name=\"" + paramName + "\"\r\n").getBytes());
+        ;
+        os.write(("\r\n" + value + "\r\n").getBytes());
 
 
     }
 
-    private void writeParamDescription(JSONObject jsonObject) throws Exception{
+    private void writeParamDescription(JSONObject jsonObject) throws Exception {
         os.write(jsonObject.toString().getBytes("UTF-8"));
     }
 }

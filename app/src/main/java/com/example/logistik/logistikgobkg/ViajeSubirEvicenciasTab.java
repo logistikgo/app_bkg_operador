@@ -55,7 +55,7 @@ public class ViajeSubirEvicenciasTab extends Fragment{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri filePath;
     private ImageView mImageView;
-    private String urlCamera = "http://10.0.2.2:63518/api/Viaje/SaveEvidenciaDigital";
+    private String urlCamera = "http://10.0.2.2:63510/api/Viaje/SaveEvidenciaDigital";
    private String urlDescription = "http://10.0.2.2:63518/api/Viaje/SaveComentarioEv_Digital";
 
    String RutaAPI, strCartaPorte, strRemision, strEvidencia, strFormat;
