@@ -55,11 +55,10 @@ public class ViajeSubirEvicenciasTab extends Fragment{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri filePath;
     private ImageView mImageView;
-    private String urlCamera = "http://10.0.2.2:63518/api/Viaje/SaveEvidenciaDigital";
+    private String urlCamera = "http://10.0.2.2:63510/api/Viaje/SaveEvidenciaDigital";
    private String urlDescription = "http://10.0.2.2:63518/api/Viaje/SaveComentarioEv_Digital";
 
-   String RutaAPI, strCartaPorte, strRemision, strEvidencia;
-
+   String RutaAPI, strCartaPorte, strRemision, strEvidencia, strFormat;
     ImageView imageViewCartaPorte, imageViewRemision, imageViewEvidencia;
     ImageButton imageButtonCartaPorte, imageButtonRemision, imageButtonEvidencia, buttonCartaPorte, buttonRemision, buttonEvidencia;
     EditText edittextCartaPorte, editTextRemision, editTextEvidencia;
@@ -158,6 +157,7 @@ public class ViajeSubirEvicenciasTab extends Fragment{
         buttonRemision.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
+                //MARCO!!
                 Titulo = "REMISION";
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
                     strRemision = editTextRemision.getText().toString();
@@ -226,12 +226,15 @@ public class ViajeSubirEvicenciasTab extends Fragment{
     }
 
     private void  saveDescription(String strData){
+        strFormat = "application/json; charset=utf-8";
         new UploadDescription().execute(strData);
         //Toast.makeText(getActivity(), dato, Toast.LENGTH_SHORT).show();
     }
 
     private void sendPhoto(Bitmap bitmap) throws Exception {
         new UploadTask().execute(bitmap);
+
+        strFormat = "multipart/form-data; boundary=" + "SwA"+Long.toString(System.currentTimeMillis())+"SwA";
 
         RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
         roundedBitmapDrawable.setCircular(true);
@@ -287,7 +290,7 @@ public class ViajeSubirEvicenciasTab extends Fragment{
             HttpClient client = new HttpClient(url);
 
             try {
-                client.connectForMultipart();
+                client.connectForMultipart(strFormat);
 
                 client.addFormPart("Titulo", Titulo);
                 client.addFormPart("TipoArchivo", TipoArchivo);
@@ -321,7 +324,7 @@ public class ViajeSubirEvicenciasTab extends Fragment{
             JSONObject jsonObject = new JSONObject();
 
             try {
-                client.connectForMultipart();
+                client.connectForMultipart(strFormat);
 
                 jsonObject.put("strTitulo", Titulo);
                 jsonObject.put("TipoArchivo", TipoArchivo);
