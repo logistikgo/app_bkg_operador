@@ -6,11 +6,6 @@
         android:top="1dp"
         android:right="1dp"
         android:bottom="1dp" />
-    <gradient
-        android:angle="270"
-        android:startColor="#36bcff"
-        android:endColor="#078af5"
-        android:centerColor="#078af5"
-        />
+    <solid android:color="@color/blue_logistik"></solid>
     <size android:height="100dp" android:width="100dp"></size>
 </shape>
