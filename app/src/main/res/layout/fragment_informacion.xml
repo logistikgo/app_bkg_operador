@@ -36,7 +36,7 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textColor="#fff"
-                    android:background="@drawable/boton_login"
+                    android:background="@drawable/button_login"
                     android:text="@string/folio_data"
                     android:layout_weight="0.31" />
 
