@@ -107,7 +107,6 @@ public class MenuActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         //MENU BAR
-//
 
         return super.onOptionsItemSelected(item);
     }
@@ -166,6 +165,11 @@ public class MenuActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_acercade) {
             // intent = new Intent(MenuActivity.this, AcercadeActivity.class);
+        } else if (id == R.id.action_Cerrar_sesion){
+            intent = new Intent(MenuActivity.this, LoginActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
+            finish();
         }
 
         if (intent != null) {
