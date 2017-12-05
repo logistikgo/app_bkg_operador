@@ -31,7 +31,7 @@ public class MenuActivity extends AppCompatActivity
     String Nameusuario;
     String IDViajeProceso;
     String StatusProceso;
-
+//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,12 +107,7 @@ public class MenuActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         //MENU BAR
-        if (id == R.id.action_Cerrar_sesion) {
-            Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.zoom_back_in, R.anim.zoom_back_out);
-            finish();
-        }
+//
 
         return super.onOptionsItemSelected(item);
     }
@@ -167,8 +162,6 @@ public class MenuActivity extends AppCompatActivity
                 alertdialog.show();
             }
 
-        } else if (id == R.id.nav_evidencias) {
-            //  intent = new Intent(MenuActivity.this, Activity_seguimientoViaje.class);
         } else if (id == R.id.nav_ajustes) {
 
         } else if (id == R.id.nav_acercade) {
