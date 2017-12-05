@@ -27,17 +27,21 @@ import com.example.logistik.logistikgobkg.Htpp.HttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.ByteBuffer;
 
-public class ViajeSubirEvicenciasTab extends Fragment{
+public class ViajeSubirEvicenciasTab extends Fragment {
     String IDViaje, Titulo;
     String TipoArchivo = "EVIDENCIAS";
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri filePath;
     private ImageView mImageView;
-  //  private String urlCamera = "http://10.0.2.2:63520/api/Viaje/SaveEvidenciaDigital";
-  //  private String urlDescription = "http://10.0.2.2:63520/api/Viaje/SaveComentarioEv_Digital";
+    //  private String urlCamera = "http://10.0.2.2:63520/api/Viaje/SaveEvidenciaDigital";
+    //  private String urlDescription = "http://10.0.2.2:63520/api/Viaje/SaveComentarioEv_Digital";
     public View view;
 
     String RutaAPI, strCartaPorte, strRemision, strEvidencia, strFormat;
@@ -45,7 +49,8 @@ public class ViajeSubirEvicenciasTab extends Fragment{
     ImageButton imageButtonCartaPorte, imageButtonRemision, imageButtonEvidencia, buttonCartaPorte, buttonRemision, buttonEvidencia, buttonGlobal;
     EditText edittextCartaPorte, editTextRemision, editTextEvidencia;
     Activity activity;
-//  Linea 51
+
+    //  Linea 51
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,9 +107,10 @@ public class ViajeSubirEvicenciasTab extends Fragment{
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         Intent takePictureIntent;
+
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.buttonSendCartaPorte:
                     Titulo = "CARTA PORTE";
                     strCartaPorte = edittextCartaPorte.getText().toString();
@@ -189,35 +195,19 @@ public class ViajeSubirEvicenciasTab extends Fragment{
         }
     }
 
-    private void  saveDescription(String strData, ImageButton imageButton){
+    private void saveDescription(String strData, ImageButton imageButton) {
         strFormat = "Description";
         new UploadDescription().execute(strData, imageButton);
         //Toast.makeText(getActivity(), dato, Toast.LENGTH_SHORT).show();
     }
 
     private void sendPhoto(Bitmap bitmap) throws Exception {
+        strFormat = "Image";
         new UploadTask().execute(bitmap);
 
-        strFormat = "Image";
 
-        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-        roundedBitmapDrawable.setCircular(true);
-
-        switch (Titulo) {
-            case "CARTA PORTE":
-                imageViewCartaPorte.setImageDrawable(roundedBitmapDrawable);
-                enableEditText(edittextCartaPorte, buttonCartaPorte);
-                return;
-            case "REMISION":
-                imageViewRemision.setImageDrawable(roundedBitmapDrawable);
-                enableEditText(editTextRemision, buttonRemision);
-                return;
-            case "EVIDENCIA":
-                imageViewEvidencia.setImageDrawable(roundedBitmapDrawable);
-                enableEditText(editTextEvidencia, buttonEvidencia);
-                return;
-        }
     }
+
     public static byte[] bitmapToByteArray(Bitmap bm) {
         // Create the buffer with the correct size
         int iBytes = bm.getWidth() * bm.getHeight() * 4;
@@ -230,12 +220,13 @@ public class ViajeSubirEvicenciasTab extends Fragment{
         return buffer.array();
     }
 
-    public class UploadTask extends AsyncTask<Bitmap, Void, Void> {
+    public class UploadTask extends AsyncTask<Bitmap, Void, JSONObject> {
+        JSONObject jRes = new JSONObject();
 
         @Override
-        protected Void doInBackground(Bitmap... bitmaps) {
-           // String url = urlCamera; //RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
-            String url = RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
+        protected JSONObject doInBackground(Bitmap... bitmaps) {
+            // String url = urlCamera; //RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
+            String url = RutaAPI + "api/Viaje/SaveEvidenciaDigital";
             String BOUNDARY = "--eriksboundry--";
 
             if (bitmaps[0] == null)
@@ -250,8 +241,6 @@ public class ViajeSubirEvicenciasTab extends Fragment{
             //byte[] b = bitmapToByteArray(bitmap);
 
 
-
-
             HttpClient client = new HttpClient(url);
 
             try {
@@ -261,31 +250,65 @@ public class ViajeSubirEvicenciasTab extends Fragment{
                 client.addFormPart("TipoArchivo", TipoArchivo);
                 client.addFormPart("IDViaje", IDViaje);
                 client.addFilePart("file", ".png", baos.toByteArray());
-                String response = null;
-
+                JSONObject response = null;
                 client.finishMultipart();
-
                 response = client.getResponse();
+                JSONObject jData = response.getJSONObject("jMeta");
+
+                URL _url = new URL(jData.getString("RutaAchivo"));
+                URLConnection con = _url.openConnection();
+                con.connect();
+                InputStream is = con.getInputStream();
+                BufferedInputStream bis = new BufferedInputStream(is);
+                Bitmap ImageServer = BitmapFactory.decodeStream(bis);
+                bis.close();
+
+                jRes.put("ImageServer", ImageServer);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            return null;
+            return jRes;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(JSONObject result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            //  Toast.makeText(MainActivity.this, R.string.uploaded, Toast.LENGTH_LONG).show();
+            Bitmap bitmap = null;
+
+            try {
+                bitmap = (Bitmap) result.get("ImageServer");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+            roundedBitmapDrawable.setCircular(true);
+
+            switch (Titulo) {
+                case "CARTA PORTE":
+                    imageViewCartaPorte.setImageDrawable(roundedBitmapDrawable);
+                    enableEditText(edittextCartaPorte, buttonCartaPorte);
+                    return;
+                case "REMISION":
+                    imageViewRemision.setImageDrawable(roundedBitmapDrawable);
+                    enableEditText(editTextRemision, buttonRemision);
+                    return;
+                case "EVIDENCIA":
+                    imageViewEvidencia.setImageDrawable(roundedBitmapDrawable);
+                    enableEditText(editTextEvidencia, buttonEvidencia);
+                    return;
+            }
         }
     }
 
     public class UploadDescription extends AsyncTask<Object, Object, JSONObject> {
         JSONObject jsonObjectRetunr = new JSONObject();
+
         @Override
-        protected JSONObject doInBackground(Object... strings){
-           // String url = urlDescription; //RutaAPI + "api/Viaje/SaveComentarioEv_Digital";
+        protected JSONObject doInBackground(Object... strings) {
+            // String url = urlDescription; //RutaAPI + "api/Viaje/SaveComentarioEv_Digital";
             String url = RutaAPI + "api/Viaje/SaveComentarioEv_Digital";
             HttpClient client = new HttpClient(url);
             JSONObject jsonObject = new JSONObject();
@@ -298,14 +321,14 @@ public class ViajeSubirEvicenciasTab extends Fragment{
                 jsonObject.put("strIDBro_Viaje", IDViaje);
                 jsonObject.put("strObservacion", strings[0]);
                 client.addDescription(jsonObject);
-                String response = null;
+                JSONObject response = null;
 
                 client.finishMultipart();
 
                 response = client.getResponse();
                 jsonObjectRetunr.put("Button", strings[1]);
 //condicional
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return jsonObjectRetunr;
@@ -323,4 +346,6 @@ public class ViajeSubirEvicenciasTab extends Fragment{
             }
         }
     }
+
+
 }

@@ -94,7 +94,7 @@ public class HttpClient {
     }
 
 
-    public String getResponse() throws Exception {
+    public JSONObject getResponse() throws Exception {
         InputStream is = con.getInputStream();
         byte[] b1 = new byte[1024];
         StringBuffer buffer = new StringBuffer();
@@ -104,7 +104,9 @@ public class HttpClient {
 
         con.disconnect();
 
-        return buffer.toString();
+        String JRes = buffer.toString();
+
+        return new JSONObject(JRes);
     }
 
     private void writeParamData(String paramName, String value) throws Exception {
