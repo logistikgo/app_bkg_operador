@@ -36,8 +36,8 @@ public class ViajeSubirEvicenciasTab extends Fragment{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri filePath;
     private ImageView mImageView;
-    private String urlCamera = "http://10.0.2.2:63520/api/Viaje/SaveEvidenciaDigital";
-    private String urlDescription = "http://10.0.2.2:63520/api/Viaje/SaveComentarioEv_Digital";
+  //  private String urlCamera = "http://10.0.2.2:63520/api/Viaje/SaveEvidenciaDigital";
+  //  private String urlDescription = "http://10.0.2.2:63520/api/Viaje/SaveComentarioEv_Digital";
     public View view;
 
     String RutaAPI, strCartaPorte, strRemision, strEvidencia, strFormat;
@@ -234,7 +234,8 @@ public class ViajeSubirEvicenciasTab extends Fragment{
 
         @Override
         protected Void doInBackground(Bitmap... bitmaps) {
-            String url = urlCamera; //RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
+           // String url = urlCamera; //RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
+            String url = RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
             String BOUNDARY = "--eriksboundry--";
 
             if (bitmaps[0] == null)
@@ -284,7 +285,8 @@ public class ViajeSubirEvicenciasTab extends Fragment{
         JSONObject jsonObjectRetunr = new JSONObject();
         @Override
         protected JSONObject doInBackground(Object... strings){
-            String url = urlDescription; //RutaAPI + "api/Viaje/SaveComentarioEv_Digital";
+           // String url = urlDescription; //RutaAPI + "api/Viaje/SaveComentarioEv_Digital";
+            String url = RutaAPI + "api/Viaje/SaveComentarioEv_Digital";
             HttpClient client = new HttpClient(url);
             JSONObject jsonObject = new JSONObject();
 
