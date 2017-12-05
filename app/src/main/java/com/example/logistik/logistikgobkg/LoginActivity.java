@@ -89,13 +89,13 @@ public class LoginActivity extends AppCompatActivity {
 //                }
                 if (jResult.getJSONObject("jMeta").getString("Response").equals("OK")) {
                     jResult = jResult.getJSONObject("jData");
-                    String NombreUsuario = jResult.getString("Nombre");
-                    Toast.makeText(this, "Bienvenido " + NombreUsuario, Toast.LENGTH_SHORT).show();
+                    String Nombre = jResult.getString("Nombre");
+                    String NombreUsuario = jResult.getString("NombreUsuario");
+                    Toast.makeText(this, "Bienvenido " + Nombre, Toast.LENGTH_SHORT).show();
                     Context currentContext = this;
                     Intent activity_login = new Intent(currentContext, MenuActivity.class);
-                    activity_login.putExtra("NameUsuario", NombreUsuario);
-                    activity_login.putExtra("IDViajeProceso", jResult.getString("IDViajeProceso"));
-                    activity_login.putExtra("StatusProceso", jResult.getString("StatusProceso"));
+                    activity_login.putExtra("Name", Nombre);
+                    activity_login.putExtra("NameUser", NombreUsuario);
                     startActivity(activity_login);
                     overridePendingTransition(R.anim.zoom_forward_in, R.anim.zoom_forward_out);
                     finish();
@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
 
             //ENCABEZADOS DE LA PETICIÓN
             connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-            //connection.setRequestProperty("Host", "localhost:63510");
+            connection.setRequestProperty("Host", "localhost:63510");
 
             //Connect to our url
             connection.connect();
