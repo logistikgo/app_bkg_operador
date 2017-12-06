@@ -326,6 +326,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
                 client.finishMultipart();
 
                 response = client.getResponse();
+                //comentariado
                 jsonObjectRetunr.put("Button", strings[1]);
 //condicional
             } catch (Exception e) {

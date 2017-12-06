@@ -107,6 +107,7 @@ public class HttpClient {
         String JRes = buffer.toString();
 
         return new JSONObject(JRes);
+        //comentariado
     }
 
     private void writeParamData(String paramName, String value) throws Exception {
