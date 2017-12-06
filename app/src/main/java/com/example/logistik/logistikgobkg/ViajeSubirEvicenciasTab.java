@@ -320,7 +320,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
                 jsonObject.put("TipoArchivo", TipoArchivo);
                 jsonObject.put("strIDBro_Viaje", IDViaje);
                 jsonObject.put("strObservacion", strings[0]);
-                client.addDescription(jsonObject);
+                client.addParamJson(jsonObject);
                 JSONObject response = null;
 
                 client.finishMultipart();

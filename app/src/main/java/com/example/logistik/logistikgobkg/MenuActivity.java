@@ -160,9 +160,9 @@ public class MenuActivity extends AppCompatActivity
         return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
-    public class getViajeCurso extends AsyncTask<Object, Object, Void>{
+    public class getViajeCurso extends AsyncTask<Object, Object, JSONObject>{
         @Override
-        protected Void doInBackground(Object... strings){
+        protected JSONObject doInBackground(Object... strings){
             Intent intent = null;
             Context context = MenuActivity.this;
 
@@ -171,18 +171,25 @@ public class MenuActivity extends AppCompatActivity
                     intent = new Intent(MenuActivity.this, ViajeCursoActivity.class);
                     String url = RutaAPI + "api/Viaje/GetViajeCurso";
                     HttpClient client = new HttpClient(url);
+                    JSONObject jsonObject = new JSONObject();
+
+
+
                     try{
                         client.connectForMultipart(strFormat);
-                        client.addFormPart("strNombreUsuario", NameUser);
-                        String response = null;
+                        jsonObject.put("strNombreUsuario", NameUser);
+                        client.addParamJson(jsonObject);
+                        JSONObject response = null;
                         client.finishMultipart();
                         response = client.getResponse();
+                        JSONObject Jres = response;
+                        intent = new Intent(MenuActivity.this, ViajeCursoActivity.class);
+                        intent.putExtra("IDViajeProceso", response.getJSONObject("jData").getString("IDViajeProceso"));
+                        intent.putExtra("StatusProceso", response.getJSONObject("jData").getString("StatusProceso"));
+                        startActivity(intent);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-                    intent.putExtra("IDViajeProceso", IDViajeProceso);
-                    intent.putExtra("StatusProceso", StatusProceso);
                 }else {
                     Toast.makeText(context, "Favor de activar tu ubicacion para continuar", Toast.LENGTH_SHORT).show();
                     android.app.AlertDialog.Builder alertdialog = new android.app.AlertDialog.Builder(context);
@@ -220,7 +227,7 @@ public class MenuActivity extends AppCompatActivity
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(JSONObject result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
         }
