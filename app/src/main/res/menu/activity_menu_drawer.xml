@@ -10,13 +10,13 @@
             android:id="@+id/nav_viajecurso"
             android:icon="@drawable/ic_menu_avion"
             android:title="@string/menu_travel" />
-        <item
-            android:id="@+id/nav_evidencias"
-            android:icon="@drawable/ic_menu_send"
-            android:title="@string/menu_evidence" />
+        <!--<item-->
+            <!--android:id="@+id/nav_evidencias"-->
+            <!--android:icon="@drawable/ic_menu_send"-->
+            <!--android:title="@string/menu_evidence" />-->
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Más...">
         <menu>
             <item
                 android:id="@+id/nav_ajustes"
@@ -28,5 +28,12 @@
                 android:title="@string/menu_about" />
         </menu>
     </item>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_Cerrar_sesion"
+            android:icon="@drawable/ic_session"
+            android:title="Cerrar sesion" />
+    </group>
 
 </menu>
