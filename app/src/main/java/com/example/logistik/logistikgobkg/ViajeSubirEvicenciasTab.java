@@ -264,9 +264,12 @@ public class ViajeSubirEvicenciasTab extends Fragment {
                 client.addFilePart("file", ".png", baos.toByteArray());
 
                 client.finishMultipart();
-                JSONObject response = client.getResponse();
 
-                if (response.getJSONObject("jData") != null) {
+
+                JSONObject response = client.getResponse();
+//                String res = response.toString();
+
+                if (response.getJSONObject("jMeta").getString("ResponseCode").equals("200")) {
 
                     JSONObject jData = response.getJSONObject("jData");
 
@@ -295,29 +298,30 @@ public class ViajeSubirEvicenciasTab extends Fragment {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
             Bitmap bitmap = null;
+            if (result.length() != 0) {
+                try {
+                    bitmap = (Bitmap) result.get("ImageServer");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-            try {
-                bitmap = (Bitmap) result.get("ImageServer");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                roundedBitmapDrawable.setCircular(true);
 
-            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-            roundedBitmapDrawable.setCircular(true);
-
-            switch (Titulo) {
-                case "CARTA PORTE":
-                    imageViewCartaPorte.setImageDrawable(roundedBitmapDrawable);
-                    enableEditText(edittextCartaPorte, buttonCartaPorte);
-                    return;
-                case "REMISION":
-                    imageViewRemision.setImageDrawable(roundedBitmapDrawable);
-                    enableEditText(editTextRemision, buttonRemision);
-                    return;
-                case "EVIDENCIA":
-                    imageViewEvidencia.setImageDrawable(roundedBitmapDrawable);
-                    enableEditText(editTextEvidencia, buttonEvidencia);
-                    return;
+                switch (Titulo) {
+                    case "CARTA PORTE":
+                        imageViewCartaPorte.setImageDrawable(roundedBitmapDrawable);
+                        enableEditText(edittextCartaPorte, buttonCartaPorte);
+                        return;
+                    case "REMISION":
+                        imageViewRemision.setImageDrawable(roundedBitmapDrawable);
+                        enableEditText(editTextRemision, buttonRemision);
+                        return;
+                    case "EVIDENCIA":
+                        imageViewEvidencia.setImageDrawable(roundedBitmapDrawable);
+                        enableEditText(editTextEvidencia, buttonEvidencia);
+                        return;
+                }
             }
         }
     }

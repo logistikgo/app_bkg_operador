@@ -1,9 +1,15 @@
 package com.example.logistik.logistikgobkg.Htpp;
 
+import android.widget.Toast;
+
+import com.example.logistik.logistikgobkg.ViajeSubirEvicenciasTab;
+
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -61,8 +67,7 @@ public class HttpClient {
         con.setRequestProperty("Connection", "Keep-Alive");
         if (strFormat == "Image") {
             con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-        }
-        else {
+        } else {
             con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
         }
         con.connect();
@@ -95,16 +100,41 @@ public class HttpClient {
 
 
     public JSONObject getResponse() throws Exception {
-        InputStream is = con.getInputStream();
-        byte[] b1 = new byte[1024];
-        StringBuffer buffer = new StringBuffer();
+        String JRes = "";
+        String inputLine;
+        int HttpResult = con.getResponseCode();
+        if (409 == HttpResult) {
+            InputStreamReader streamReader = new InputStreamReader(con.getErrorStream());
 
-        while (is.read(b1) != -1)
-            buffer.append(new String(b1));
+            StringBuilder stringBuilder = new StringBuilder();
 
-        con.disconnect();
+            //LEER JSON MANUAL
+            //Create a new buffered reader and String Builder
+            BufferedReader reader = new BufferedReader(streamReader);
 
-        String JRes = buffer.toString();
+            //Check if the line we are reading is not null
+            while ((inputLine = reader.readLine()) != null) {
+                stringBuilder.append(inputLine);
+            }
+            //Close our InputStream and Buffered reader
+            reader.close();
+            streamReader.close();
+           // Toast.makeText(ViajeSubirEvicenciasTab, "ACCESS GRANTED REQUEST", Toast.LENGTH_SHORT).show();
+            JRes = stringBuilder.toString();
+        } else {
+
+            InputStream is = con.getInputStream();
+            byte[] b1 = new byte[1024];
+            StringBuffer buffer = new StringBuffer();
+
+            while (is.read(b1) != -1) {
+                buffer.append(new String(b1));
+            }
+
+            con.disconnect();
+
+             JRes = buffer.toString();
+        }
 
         return new JSONObject(JRes);
         //comentariado
