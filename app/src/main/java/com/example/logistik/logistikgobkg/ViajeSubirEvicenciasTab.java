@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.logistik.logistikgobkg.Config.ConexionAPIs;
 import com.example.logistik.logistikgobkg.Htpp.HttpClient;
@@ -188,13 +189,14 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ImageView nImage = (ImageView) getActivity().findViewById(R.id.imageView);
+        //  ImageView nImage = (ImageView) getActivity().findViewById(R.id.imageView);
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
 
-            filePath = data.getData();
+//            filePath = data.getData();
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+
             try {
                 sendPhoto(imageBitmap);
             } catch (Exception e) {
@@ -256,23 +258,32 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
                 client.addFormPart("Titulo", Titulo);
                 client.addFormPart("TipoArchivo", TipoArchivo);
-                client.addFormPart("IDViaje", IDViaje);
+                //client.addFormPart("IDViaje", IDViaje);
+
+                client.addFormPart("IDViaje", "67888");
                 client.addFilePart("file", ".png", baos.toByteArray());
-                JSONObject response = null;
+
                 client.finishMultipart();
-                response = client.getResponse();
-                JSONObject jData = response.getJSONObject("jMeta");
+                JSONObject response = client.getResponse();
 
-                URL _url = new URL(jData.getString("RutaAchivo"));
-                URLConnection con = _url.openConnection();
-                con.connect();
-                InputStream is = con.getInputStream();
-                BufferedInputStream bis = new BufferedInputStream(is);
-                Bitmap ImageServer = BitmapFactory.decodeStream(bis);
-                bis.close();
+                if (response.getJSONObject("jData") != null) {
 
-                jRes.put("ImageServer", ImageServer);
+                    JSONObject jData = response.getJSONObject("jData");
 
+                    URL _url = new URL(jData.getString("RutaAchivo"));
+                    URLConnection con = _url.openConnection();
+                    con.connect();
+                    InputStream is = con.getInputStream();
+                    BufferedInputStream bis = new BufferedInputStream(is);
+                    Bitmap ImageServer = BitmapFactory.decodeStream(bis);
+                    bis.close();
+
+                    jRes.put("ImageServer", ImageServer);
+                } else {
+                    JSONObject jMeta = response.getJSONObject("jMeta");
+                    Toast.makeText(getActivity(), jMeta.getString("Message"), Toast.LENGTH_SHORT).show();
+                    JSONObject jDataError = response.getJSONObject("jDataError");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -358,6 +369,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
     private class DownloadFilesTask extends AsyncTask<Object, Object, Bitmap> {
         Bitmap bm = null;
+
         @Override
         protected Bitmap doInBackground(Object... url) {
             String RutaImagen = (String) url[0];
@@ -375,10 +387,10 @@ public class ViajeSubirEvicenciasTab extends Fragment {
             }
             return bm;
         }
+
         @Override
-        protected void onPostExecute ( Bitmap result )
-        {
-         //   imagen.setImageBitmap(result);
+        protected void onPostExecute(Bitmap result) {
+            //   imagen.setImageBitmap(result);
         }
     }
 

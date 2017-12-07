@@ -57,7 +57,7 @@ public class HttpClient {
         //  con.getAllowUserInteraction ();
         con.setDoInput(true);
         con.setDoOutput(true);
-        con.setRequestProperty("Host", "localhost:63520");
+        con.setRequestProperty("Host", "localhost:63510");
         con.setRequestProperty("Connection", "Keep-Alive");
         if (strFormat == "Image") {
             con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
