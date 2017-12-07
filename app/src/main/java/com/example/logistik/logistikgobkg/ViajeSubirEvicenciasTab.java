@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -44,7 +45,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
     //  private String urlDescription = "http://10.0.2.2:63520/api/Viaje/SaveComentarioEv_Digital";
     public View view;
 
-    String RutaAPI, strCartaPorte, strRemision, strEvidencia, strFormat;
+    String RutaAPI, strCartaPorte, strRemision, strEvidencia, strFormat, RutaCartaProte, RutaRemision, RutaEvidencia, DescripcionCartaporte, DescripcionRemision, DescripcionEvidencia;
     ImageView imageViewCartaPorte, imageViewRemision, imageViewEvidencia;
     ImageButton imageButtonCartaPorte, imageButtonRemision, imageButtonEvidencia, buttonCartaPorte, buttonRemision, buttonEvidencia, buttonGlobal;
     EditText edittextCartaPorte, editTextRemision, editTextEvidencia;
@@ -66,6 +67,13 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
         Bundle bundle = getActivity().getIntent().getExtras();
         IDViaje = bundle.getString("IDViajeProceso");
+        RutaCartaProte = bundle.getString("RutaCartaPorte");
+        RutaRemision = bundle.getString("RutaRemision");
+        RutaEvidencia = bundle.getString("RutaEvidencia");
+        DescripcionCartaporte = bundle.getString("DescripcionCartaPorte");
+        DescripcionRemision = bundle.getString("DescripcionRemision");
+        DescripcionEvidencia = bundle.getString("DescripcionEvidencia");
+
 
         imageViewCartaPorte = (ImageView) view.findViewById(R.id.imageViewCartaPorte);
         imageViewRemision = (ImageView) view.findViewById(R.id.imageViewRemision);
@@ -345,6 +353,32 @@ public class ViajeSubirEvicenciasTab extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private class DownloadFilesTask extends AsyncTask<Object, Object, Bitmap> {
+        Bitmap bm = null;
+        @Override
+        protected Bitmap doInBackground(Object... url) {
+            String RutaImagen = (String) url[0];
+            try {
+                URL _url = new URL(RutaImagen);
+                URLConnection con = _url.openConnection();
+                con.connect();
+                InputStream is = con.getInputStream();
+                BufferedInputStream bis = new BufferedInputStream(is);
+                bm = BitmapFactory.decodeStream(bis);
+                bis.close();
+                is.close();
+            } catch (IOException e) {
+
+            }
+            return bm;
+        }
+        @Override
+        protected void onPostExecute ( Bitmap result )
+        {
+         //   imagen.setImageBitmap(result);
         }
     }
 
