@@ -35,6 +35,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 public class ViajeSubirEvicenciasTab extends Fragment {
     String IDViaje, Titulo;
@@ -56,7 +57,16 @@ public class ViajeSubirEvicenciasTab extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getActivity().getIntent().getExtras();
+        IDViaje = bundle.getString("IDViajeProceso");
+        RutaCartaProte = bundle.getString("RutaCartaPorte");
+        RutaRemision = bundle.getString("RutaRemision");
+        RutaEvidencia = bundle.getString("RutaEvidencia");
+        DescripcionCartaporte = bundle.getString("DescripcionCartaPorte");
+        DescripcionRemision = bundle.getString("DescripcionRemision");
+        DescripcionEvidencia = bundle.getString("DescripcionEvidencia");
 
+        new DownloadFilesTask().execute(RutaCartaProte, RutaRemision, RutaEvidencia);
     }
 
     @Override
@@ -66,14 +76,6 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         view = inflater.inflate(R.layout.fragment_viaje_subirevidencias, container, false);
         RutaAPI = ConexionAPIs.RutaApi;
 
-        Bundle bundle = getActivity().getIntent().getExtras();
-        IDViaje = bundle.getString("IDViajeProceso");
-        RutaCartaProte = bundle.getString("RutaCartaPorte");
-        RutaRemision = bundle.getString("RutaRemision");
-        RutaEvidencia = bundle.getString("RutaEvidencia");
-        DescripcionCartaporte = bundle.getString("DescripcionCartaPorte");
-        DescripcionRemision = bundle.getString("DescripcionRemision");
-        DescripcionEvidencia = bundle.getString("DescripcionEvidencia");
 
 
         imageViewCartaPorte = (ImageView) view.findViewById(R.id.imageViewCartaPorte);
@@ -112,6 +114,8 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         buttonRemision.setOnClickListener(onClickListener);
         buttonEvidencia.setOnClickListener(onClickListener);
         return view;
+
+
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -232,35 +236,28 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
     public class UploadTask extends AsyncTask<Bitmap, Void, JSONObject> {
         JSONObject jRes = new JSONObject();
-
         @Override
         protected JSONObject doInBackground(Bitmap... bitmaps) {
             // String url = urlCamera; //RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
             String url = RutaAPI + "api/Viaje/SaveEvidenciaDigital";
             String BOUNDARY = "--eriksboundry--";
-
             if (bitmaps[0] == null)
                 return null;
             Bitmap bitmap = bitmaps[0];
             ByteArrayOutputStream stream = new ByteArrayOutputStream();            //   bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream); // convert Bitmap to ByteArrayOutputStream
             //  InputStream in = new ByteArrayInputStream(stream.toByteArray()); // convert ByteArrayOutputStream to ByteArrayInputStream
             //  bitmap = BitmapFactory.decodeResource(MainActivity.this.getResources(), R.mipmap.ic_launcher);
-
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             //byte[] b = bitmapToByteArray(bitmap);
-
-
             HttpClient client = new HttpClient(url);
-
             try {
                 client.connectForMultipart(strFormat);
 
                 client.addFormPart("Titulo", Titulo);
                 client.addFormPart("TipoArchivo", TipoArchivo);
-                //client.addFormPart("IDViaje", IDViaje);
-
-                client.addFormPart("IDViaje", "67888");
+                client.addFormPart("IDViaje", IDViaje);
+               // client.addFormPart("IDViaje", "67888");
                 client.addFilePart("file", ".png", baos.toByteArray());
 
                 client.finishMultipart();
@@ -371,30 +368,46 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         }
     }
 
-    private class DownloadFilesTask extends AsyncTask<Object, Object, Bitmap> {
+    private class DownloadFilesTask extends AsyncTask<Object, Object, ArrayList<Bitmap>> {
         Bitmap bm = null;
-
+        ArrayList<Bitmap> RutasArchivos = new ArrayList<>();
         @Override
-        protected Bitmap doInBackground(Object... url) {
-            String RutaImagen = (String) url[0];
+        protected ArrayList<Bitmap> doInBackground(Object... jobject) {
+            String UrlImagen = "";
             try {
-                URL _url = new URL(RutaImagen);
-                URLConnection con = _url.openConnection();
-                con.connect();
-                InputStream is = con.getInputStream();
-                BufferedInputStream bis = new BufferedInputStream(is);
-                bm = BitmapFactory.decodeStream(bis);
-                bis.close();
-                is.close();
+                for (Object e : jobject) {
+                    UrlImagen = (String) e;
+                    URL _url = new URL(UrlImagen);
+                    URLConnection con = _url.openConnection();
+                    con.connect();
+                    InputStream is = con.getInputStream();
+                    BufferedInputStream bis = new BufferedInputStream(is);
+                    bm = BitmapFactory.decodeStream(bis);
+                    bis.close();
+                    is.close();
+                    RutasArchivos.add(bm);
+                }
             } catch (IOException e) {
 
             }
-            return bm;
+            return RutasArchivos;
         }
 
         @Override
-        protected void onPostExecute(Bitmap result) {
+        protected void onPostExecute(ArrayList<Bitmap> result) {
             //   imagen.setImageBitmap(result);
+            for (int i = 0; i < result.size(); i++) {
+                //    Obtiene el campo Descripción y lo agrega al array de strings "zona".
+                //  result.get(i).toString();
+                if (i == 0) {
+                    imageViewCartaPorte.setImageBitmap(result.get(i));
+                } else if (i == 1) {
+                    imageViewRemision.setImageBitmap(result.get(i));
+                }
+                else if (i == 2){
+                    imageViewEvidencia.setImageBitmap(result.get(i));
+                }
+            }
         }
     }
 
