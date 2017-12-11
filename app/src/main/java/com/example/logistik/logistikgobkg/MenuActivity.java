@@ -132,7 +132,7 @@ public class MenuActivity extends AppCompatActivity
         } else if (id == R.id.nav_ajustes) {
 
         } else if (id == R.id.nav_acercade) {
-            // intent = new Intent(MenuActivity.this, AcercadeActivity.class);
+            intent = new Intent(MenuActivity.this, AcercaDe.class);
         } else if (id == R.id.action_Cerrar_sesion){
             intent = new Intent(MenuActivity.this, LoginActivity.class);
             startActivity(intent);
