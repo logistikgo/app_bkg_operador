@@ -77,7 +77,6 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         RutaAPI = ConexionAPIs.RutaApi;
 
 
-
         imageViewCartaPorte = (ImageView) view.findViewById(R.id.imageViewCartaPorte);
         imageViewRemision = (ImageView) view.findViewById(R.id.imageViewRemision);
         imageViewEvidencia = (ImageView) view.findViewById(R.id.imageViewEvidencia);
@@ -236,6 +235,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
     public class UploadTask extends AsyncTask<Bitmap, Void, JSONObject> {
         JSONObject jRes = new JSONObject();
+
         @Override
         protected JSONObject doInBackground(Bitmap... bitmaps) {
             // String url = urlCamera; //RutaAPI +  "api/Viaje/SaveEvidenciaDigital";
@@ -257,7 +257,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
                 client.addFormPart("Titulo", Titulo);
                 client.addFormPart("TipoArchivo", TipoArchivo);
                 client.addFormPart("IDViaje", IDViaje);
-               // client.addFormPart("IDViaje", "67888");
+                // client.addFormPart("IDViaje", "67888");
                 client.addFilePart("file", ".png", baos.toByteArray());
 
                 client.finishMultipart();
@@ -371,6 +371,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
     private class DownloadFilesTask extends AsyncTask<Object, Object, ArrayList<Bitmap>> {
         Bitmap bm = null;
         ArrayList<Bitmap> RutasArchivos = new ArrayList<>();
+
         @Override
         protected ArrayList<Bitmap> doInBackground(Object... jobject) {
             String UrlImagen = "";
@@ -403,8 +404,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
                     imageViewCartaPorte.setImageBitmap(result.get(i));
                 } else if (i == 1) {
                     imageViewRemision.setImageBitmap(result.get(i));
-                }
-                else if (i == 2){
+                } else if (i == 2) {
                     imageViewEvidencia.setImageBitmap(result.get(i));
                 }
             }
