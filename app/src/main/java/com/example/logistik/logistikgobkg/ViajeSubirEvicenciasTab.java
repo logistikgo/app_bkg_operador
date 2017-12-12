@@ -397,15 +397,23 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<Bitmap> result) {
             //   imagen.setImageBitmap(result);
+            Bitmap bitmap = null;
+            RoundedBitmapDrawable roundedBitmapDrawable = null;
+
             for (int i = 0; i < result.size(); i++) {
                 //    Obtiene el campo Descripción y lo agrega al array de strings "zona".
                 //  result.get(i).toString();
+                bitmap = (Bitmap) result.get(i);
+                roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                roundedBitmapDrawable.setCircular(true);
                 if (i == 0) {
-                    imageViewCartaPorte.setImageBitmap(result.get(i));
+                    imageViewCartaPorte.setImageDrawable(roundedBitmapDrawable);
                 } else if (i == 1) {
-                    imageViewRemision.setImageBitmap(result.get(i));
+                    bitmap = (Bitmap) result.get(i);
+                    imageViewRemision.setImageDrawable(roundedBitmapDrawable);
                 } else if (i == 2) {
-                    imageViewEvidencia.setImageBitmap(result.get(i));
+                    bitmap = (Bitmap) result.get(i);
+                    imageViewEvidencia.setImageDrawable(roundedBitmapDrawable);
                 }
             }
         }
