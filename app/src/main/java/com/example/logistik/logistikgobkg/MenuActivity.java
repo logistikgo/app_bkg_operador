@@ -186,12 +186,12 @@ public class MenuActivity extends AppCompatActivity
                         intent = new Intent(MenuActivity.this, ViajeCursoActivity.class);
                         intent.putExtra("IDViajeProceso", response.getJSONObject("jData").getString("IDViajeProceso"));
                         intent.putExtra("StatusProceso", response.getJSONObject("jData").getString("StatusProceso"));
-                        intent.putExtra("RutaCartaPorte", response.getJSONObject("jData").getString("RutaCartaPorte"));
-                        intent.putExtra("RutaRemision", response.getJSONObject("jData").getString("RutaRemision"));
-                        intent.putExtra("RutaEvidencia", response.getJSONObject("jData").getString("RutaEvidencia"));
-                        intent.putExtra("DescripcionCartaPorte", response.getJSONObject("jData").getString("DescripcionCartaPorte"));
-                        intent.putExtra("DescripcionRemision", response.getJSONObject("jData").getString("DescripcionRemision"));
-                        intent.putExtra("DescripcionEvidencia", response.getJSONObject("jData").getString("DescripcionEvidencia"));
+//                        intent.putExtra("RutaCartaPorte", response.getJSONObject("jData").getString("RutaCartaPorte"));
+//                        intent.putExtra("RutaRemision", response.getJSONObject("jData").getString("RutaRemision"));
+//                        intent.putExtra("RutaEvidencia", response.getJSONObject("jData").getString("RutaEvidencia"));
+//                        intent.putExtra("DescripcionCartaPorte", response.getJSONObject("jData").getString("DescripcionCartaPorte"));
+//                        intent.putExtra("DescripcionRemision", response.getJSONObject("jData").getString("DescripcionRemision"));
+//                        intent.putExtra("DescripcionEvidencia", response.getJSONObject("jData").getString("DescripcionEvidencia"));
                         startActivity(intent);
                     } catch (Exception e) {
                         e.printStackTrace();

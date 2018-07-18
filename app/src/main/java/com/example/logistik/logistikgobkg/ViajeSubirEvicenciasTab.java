@@ -59,14 +59,14 @@ public class ViajeSubirEvicenciasTab extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getActivity().getIntent().getExtras();
         IDViaje = bundle.getString("IDViajeProceso");
-        RutaCartaProte = bundle.getString("RutaCartaPorte");
-        RutaRemision = bundle.getString("RutaRemision");
-        RutaEvidencia = bundle.getString("RutaEvidencia");
-        DescripcionCartaporte = bundle.getString("DescripcionCartaPorte");
-        DescripcionRemision = bundle.getString("DescripcionRemision");
-        DescripcionEvidencia = bundle.getString("DescripcionEvidencia");
+//        RutaCartaProte = bundle.getString("RutaCartaPorte");
+//        RutaRemision = bundle.getString("RutaRemision");
+//        RutaEvidencia = bundle.getString("RutaEvidencia");
+//        DescripcionCartaporte = bundle.getString("DescripcionCartaPorte");
+//        DescripcionRemision = bundle.getString("DescripcionRemision");
+//        DescripcionEvidencia = bundle.getString("DescripcionEvidencia");
 
-        new DownloadFilesTask().execute(RutaCartaProte, RutaRemision, RutaEvidencia);
+//        new DownloadFilesTask().execute(RutaCartaProte, RutaRemision, RutaEvidencia);
     }
 
     @Override
@@ -270,7 +270,7 @@ public class ViajeSubirEvicenciasTab extends Fragment {
 
                     JSONObject jData = response.getJSONObject("jData");
 
-                    URL _url = new URL(jData.getString("RutaAchivo"));
+                    URL _url = new URL(jData.getString("RutaArchivo"));
                     URLConnection con = _url.openConnection();
                     con.connect();
                     InputStream is = con.getInputStream();

@@ -63,7 +63,7 @@ public class HttpClient {
         //  con.getAllowUserInteraction ();
         con.setDoInput(true);
         con.setDoOutput(true);
-        con.setRequestProperty("Host", "localhost:63510");
+//        con.setRequestProperty("Host", "localhost:63510");
         con.setRequestProperty("Connection", "Keep-Alive");
         if (strFormat == "Image") {
             con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
@@ -103,7 +103,7 @@ public class HttpClient {
         String JRes = "";
         String inputLine;
         int HttpResult = con.getResponseCode();
-        if (409 == HttpResult) {
+        if (409 == HttpResult || 500 == HttpResult) {
             InputStreamReader streamReader = new InputStreamReader(con.getErrorStream());
 
             StringBuilder stringBuilder = new StringBuilder();
